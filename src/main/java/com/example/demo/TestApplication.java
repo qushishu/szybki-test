@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestApplication {
 
-	@GetMapping("/message")
-	public String getMessage(){
-		return "Welcome";
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(TestApplication.class, args);
 	}

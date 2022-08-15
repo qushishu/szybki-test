@@ -4,6 +4,7 @@ import com.example.demo.model.Pytanie;
 import com.example.demo.model.RozwiazanyTest;
 import com.example.demo.repository.PytanieRepository;
 import com.example.demo.repository.RozwiazanyTestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.Optional;
 public class RozwiazanyTestManager {
     private final RozwiazanyTestRepository rozwiazanyTestRepository;
 
+    @Autowired
     public RozwiazanyTestManager(RozwiazanyTestRepository rozwiazanyTestRepository) {
         super();
         this.rozwiazanyTestRepository = rozwiazanyTestRepository;
