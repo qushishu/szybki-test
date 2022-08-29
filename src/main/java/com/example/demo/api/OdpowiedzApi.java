@@ -8,6 +8,7 @@ import com.example.demo.services.OdpowiedzManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +51,10 @@ public class OdpowiedzApi {
     @DeleteMapping
     public void deleteOdpowiedz(@RequestBody Odpowiedz odpowiedz){
         odpowiedzRepository.delete(odpowiedz);
+    }
+
+    @GetMapping(path = "/dopytania")
+    public List<Odpowiedz> getOdpowiedziByPytanieId(@RequestParam @NotNull Long pytanieId){
+        return odpowiedzManager.getOdpowiedziByPytanieId(pytanieId);
     }
 }

@@ -55,4 +55,9 @@ public class TestApi {
     public void deleteTest(@RequestBody Test test){
         testRepository.delete(test);
     }
+
+    @GetMapping(path = "/donauczyciela")
+    public List<Test> getTestByNauczycielId(@RequestParam Long nauczycielId){
+        return testManager.getTestByNauczycielId(nauczycielId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import com.example.demo.model.Odpowiedz;
 import com.example.demo.model.OdpowiedzStudenta;
 import com.example.demo.model.Pytanie;
 import com.example.demo.repository.PytanieRepository;
@@ -8,6 +9,7 @@ import com.example.demo.services.PytanieManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +52,10 @@ public class PytanieApi {
     @DeleteMapping
     public void deletePytanie(@RequestBody Pytanie pytanie){
         pytanieRepository.delete(pytanie);
+    }
+
+    @GetMapping(path = "/dotestu")
+    public List<Pytanie> getOdpowiedziByPytanieId(@RequestParam @NotNull Long testId){
+        return pytanieManager.getPytanieByTestId(testId);
     }
 }
