@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useState} ,{useState} from 'react';
 import './App.css';
 import { fetchQuizQuestions,getQuizQuestionss } from './API';
 //Components
