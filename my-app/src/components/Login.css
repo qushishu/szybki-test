@@ -26,6 +26,17 @@
     text-decoration: underline;
     cursor: pointer;
 }
+.forgot_password {
+    color: black;
+    text-align: center;
+    font-family: serif;
+}
+
+.forgot_password:hover {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 h2 {
     color: black;
@@ -36,7 +47,8 @@ h2 {
     font-family: serif;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password]{
     width: 95%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -60,4 +72,41 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #45a049;
+}
+
+button {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    margin-top: 5px;
+    margin-left: -130px;
+}
+
+.arrow {
+    cursor: pointer;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+.left {
+    left: 42%;
+}
+
+.left:hover polyline,
+.left:focus polyline {
+    stroke-width: 3;
+}
+
+.left:active polyline {
+    stroke-width: 6;
+    transition: all 100ms ease-in-out;
+}
+
+svg {
+    padding: 5px;
+}
+
+polyline {
+    transition: all 250ms ease-in-out;
 }
