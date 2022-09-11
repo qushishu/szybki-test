@@ -1,9 +1,7 @@
 package com.example.demo.api;
 
-import com.example.demo.model.Odpowiedz;
 import com.example.demo.model.OdpowiedzStudenta;
 import com.example.demo.repository.OdpowiedzStudentaRepository;
-import com.example.demo.services.OdpowiedzManager;
 import com.example.demo.services.OdpowiedzStudentaManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

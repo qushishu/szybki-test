@@ -1,11 +1,11 @@
 package com.example.demo.api;
 
-import com.example.demo.model.Odpowiedz;
-import com.example.demo.model.OdpowiedzStudenta;
 import com.example.demo.model.Pytanie;
+import com.example.demo.model.Test;
 import com.example.demo.repository.PytanieRepository;
-import com.example.demo.services.OdpowiedzStudentaManager;
+import com.example.demo.repository.TestRepository;
 import com.example.demo.services.PytanieManager;
+import com.example.demo.wrapper.PytanieWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +23,9 @@ public class PytanieApi {
     @Autowired
     private PytanieRepository pytanieRepository;
 
+    @Autowired
+    private TestRepository testRepository;
+
     @GetMapping(value = "/{pytanieId}")
     public Optional<Pytanie> findById(@RequestParam Long loginId) {
         return pytanieRepository.findById(loginId);
@@ -34,7 +37,12 @@ public class PytanieApi {
     }
 
     @PostMapping
-    public Pytanie savePytanie(@RequestBody Pytanie pytanie){
+    public Pytanie savePytanie(@RequestBody PytanieWrapper pytanieWrapper){
+        Test test = testRepository.findById(pytanieWrapper.getTestId()).orElseThrow();
+        Pytanie pytanie = Pytanie.builder()
+                .tresc(pytanieWrapper.getTresc())
+                .test(test)
+                .build();
         return pytanieRepository.save(pytanie);
     }
 

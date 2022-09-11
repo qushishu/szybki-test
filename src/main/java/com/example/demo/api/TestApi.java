@@ -1,10 +1,10 @@
 package com.example.demo.api;
 
-import com.example.demo.model.RozwiazanyTest;
-import com.example.demo.model.Test;
+import com.example.demo.model.*;
+import com.example.demo.repository.NauczycielRepository;
 import com.example.demo.repository.TestRepository;
-import com.example.demo.services.RozwiazanyTestManager;
 import com.example.demo.services.TestManager;
+import com.example.demo.wrapper.TestWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +21,9 @@ public class TestApi {
     @Autowired
     private TestRepository testRepository;
 
+    @Autowired
+    private NauczycielRepository nauczycielRepository;
+
     @GetMapping(value = "/{testId}")
     public Optional<Test> findById(@RequestParam Long loginId) {
         return testRepository.findById(loginId);
@@ -32,7 +35,16 @@ public class TestApi {
     }
 
     @PostMapping
-    public Test saveTest(@RequestBody Test test){
+    public Test saveTest(@RequestBody TestWrapper testWrapper){
+        Nauczyciel nauczyciel = nauczycielRepository.findById(testWrapper.getNauczycielId()).orElseThrow();
+        Test test = Test.builder()
+                .nauczyciel(nauczyciel)
+                .czasTrwania(testWrapper.getCzasTrwania())
+                .dataUruchomienia(testWrapper.getDataUruchomienia())
+                .dataZakonczenia(testWrapper.getDataZakonczenia())
+                .nazwa(testWrapper.getNazwa())
+                .token(testWrapper.getToken())
+                .build();
         return testRepository.save(test);
     }
 
@@ -51,9 +63,9 @@ public class TestApi {
         return newTest.get();
     }
 
-    @DeleteMapping
-    public void deleteTest(@RequestBody Test test){
-        testRepository.delete(test);
+    @DeleteMapping(value = "/testId")
+    public void deleteTest(@RequestParam Long id){
+        testRepository.deleteById(id);
     }
 
     @GetMapping(path = "/donauczyciela")

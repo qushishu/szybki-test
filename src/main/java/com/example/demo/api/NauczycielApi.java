@@ -1,9 +1,7 @@
 package com.example.demo.api;
 
-import com.example.demo.model.Login;
 import com.example.demo.model.Nauczyciel;
 import com.example.demo.repository.NauczycielRepository;
-import com.example.demo.services.LoginManager;
 import com.example.demo.services.NauczycielManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

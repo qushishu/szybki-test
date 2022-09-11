@@ -1,9 +1,7 @@
 package com.example.demo.api;
 
-import com.example.demo.model.Pytanie;
 import com.example.demo.model.RozwiazanyTest;
 import com.example.demo.repository.RozwiazanyTestRepository;
-import com.example.demo.services.PytanieManager;
 import com.example.demo.services.RozwiazanyTestManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
