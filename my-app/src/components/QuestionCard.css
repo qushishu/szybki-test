@@ -13,7 +13,7 @@ div p {
     font-size: 1em;
 }
 
-button {
+.main button {
     cursor: pointer;
     user-select: none;
     font-size: 0.8em;

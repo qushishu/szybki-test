@@ -71,9 +71,11 @@ const TestCreating = () => {
     <div>
       <h1>Test Creating</h1>
       {pytania}
+      <div className='options'>
       <button onClick={addQuestion}>Dodaj pytanie</button>
       <button onClick={removeQuestion}>Usun pytanie</button>
       <button onClick={saveQuesions}>Zapisz test</button>
+      </div>
     </div>
   )
 }

@@ -19,6 +19,8 @@ function App() {
           <Route path="/" element={loggedIn ? null : <Navigate replace to="/login" />} />
           <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="test-solving" element={<TestSolving />} />
+          <Route path="test-creating" element={<TestCreating />} />
         </Routes>
       </BrowserRouter>
     </div>
