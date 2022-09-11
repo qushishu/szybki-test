@@ -1,0 +1,97 @@
+.main {
+    max-width: 1100px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #a3006d;
+    padding: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+button {
+    margin-bottom: 15px;
+}
+
+input[type=textarea] {
+    margin: 10px 00px 10px 10px;
+    /*top right bottom left*/
+    color: #5c1394;
+    width: 100px;
+    height: 200px;
+    padding: 1px;
+    display: flex;
+    /* min-height:150px;
+  max-height:250px;
+  min-width:100%;
+  max-width:100%; */
+    line-break: auto;
+}
+
+
+textarea {
+    margin: 0px 0px 00px 10px;
+}
+
+.answers-section label {
+    margin: 5px 00px 15px 0px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.answers-section span {
+    margin: 10px 00px 15px 0px
+}
+
+.question-mark {
+    padding: 0px 0px 10px 0px;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div p {
+    color: white;
+}
+
+div .score {
+    color: white;
+    font-size: 2em;
+    margin: 0;
+}
+
+div h1 {
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: linear-gradient(180deg, white, #87f1ff);
+    background-size: 100%;
+    background-clip: text;
+    filter: drop-shadow(2px 2px #0085a3);
+    font-size: 70px;
+}
+
+div .start,
+.next {
+    cursor: pointer;
+    color: black;
+    background: linear-gradient(180deg, #fff, #ffcc91);
+    border: 2px solid #d38558;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: 40px;
+    margin: 20px 0;
+    padding: 0 40px;
+}
+
+div .start {
+    max-width: 200px;
+}
