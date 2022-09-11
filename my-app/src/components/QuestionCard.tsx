@@ -1,30 +1,28 @@
 import React from "react";
-import {AnswerObject} from '../App'
+import {AnswerObject} from "./TestSolving"
 import './QuestionCard.css'
+import { Pytanie,Odpowiedz } from "../API";
 
 type Props ={
-    question: string;
-    answers: string[];//było []
     callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    useAnswer: AnswerObject | undefined;
     questionNr: number;
     totalQuestions: number;
+    odpowiedzi: Pytanie[];
 }
 
-const QuestionCard: React.FC<Props> = ({question,answers,callback,useAnswer,questionNr,totalQuestions}) => (
-<div className="main">
+const QuestionCard: React.FC<Props> = ({callback,questionNr,totalQuestions,odpowiedzi}) => (
+<div className="main" >
     <p className="number">
         Question: {questionNr} / {totalQuestions}
     </p>
-    <p dangerouslySetInnerHTML={{__html: question}}/>
+    {odpowiedzi[questionNr-1].tresc}
     <div>
-        {answers.map(answer =>(
-            <div key={answer}>
-                <button disabled={ useAnswer ? true : false} value={answer} onClick={callback}>
-                    <span dangerouslySetInnerHTML={{__html: answer}}/>
+         {odpowiedzi[questionNr-1].odpowiedzi.map(answer =>(
+            <div key={answer.tresc}>
+                <button onClick={callback}>
+                    {answer.tresc}
                 </button>
             </div>
-        
         ))}
     </div>
 </div>
