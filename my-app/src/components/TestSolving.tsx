@@ -23,6 +23,8 @@ const TestSolving = () => {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
   const [answers, setAnswers] = useState<Pytanie[]>([]);
+  const [next,setNext]= useState(false);
+  const [correctAns,setCorrectAns] = useState(0);
 
   const startTrivia = async () => {
     setLoading(true);
@@ -42,35 +44,37 @@ const TestSolving = () => {
   }
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!gameOver) {
-      //user answer
+    console.log(e.currentTarget.value);
+
+    if(!gameOver ){
       const answer = e.currentTarget.value;
-      //check answer against correct answer
-      const correct = questions[number].correct_answer === answer;
-      //add score if answer is correct
-      if (correct) setScore(prev => prev + 1)
-      //save answer in the array for user answers
-      const answerObject = {
-        question: questions[number].question,
-        answer,
-        correct,
-        correctAnswer: questions[number].correct_answer,
-      };
-      setUserAnswers(prev => [...prev, answerObject]);
+      for(let i=0;i<4;i++){
+        if(answers[number].odpowiedzi[i].tresc==answer && answers[number].odpowiedzi[i].czyPoprawna){
+            console.log("dobra odpowiedz");
+            setCorrectAns(1);
+            break;
+        }
+        else{
+          setCorrectAns(0);
+        }
+      }
     }
+    setNext(true);
   }
 
   const nextQuestion = () => {
-    //move on to the next questions if not the last question
+    setNext(false);
+    //move on to the next questions if not the last questio
+    const pkt=score+correctAns;
+    setScore(pkt);
     const nextQuestion = number + 1;
-
     if (nextQuestion === TOTAL_QUESTIONS) {
       setGameOver(true);
+      console.log("pkt:"+pkt);
     }
     else {
       setNumber(nextQuestion);
     }
-
   }
 
 
@@ -79,11 +83,14 @@ const TestSolving = () => {
       <h1>REACT QUIZ</h1>
 
       {gameOver || userAnswers.length == TOTAL_QUESTIONS ? (
+        <div>
+          <h2>Wynik: {score}</h2>
         <button className='start' onClick={startTrivia}>
           start
         </button>
+        </div>
       ) : null}
-      {!gameOver ? <p className='score'>Score: {score}</p> : null}
+      {/* {!gameOver ? <p className='score'>Score: {score}</p> : null} */}
       {loading && <p>Loading Questions ...</p>}
       {!loading && !gameOver && number < answers.length && (
         <QuestionCard
@@ -92,7 +99,7 @@ const TestSolving = () => {
           callback={checkAnswer}
           odpowiedzi={answers}
         />)}
-      {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
+      {!gameOver && !loading && next ? (
         <button className="next" onClick={nextQuestion}>Next Question</button>
       ) : null}
     </div>
