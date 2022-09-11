@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import TestCreating from './components/TestCreating';
+import TestSolving from './components/TestSolving';
+
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
 
@@ -16,6 +19,8 @@ function App() {
           <Route path="forgot-password" element={<ForgotPassword/>} />
         </Routes>
       </BrowserRouter>
+       {/* <TestCreating/> */}
+       {/* <TestSolving/> */}
     </div>
   );
 }
