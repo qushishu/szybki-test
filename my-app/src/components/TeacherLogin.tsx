@@ -22,7 +22,7 @@ const TeacherLogin = () => {
     teacherId = await auth(inputLogin, inputPassword)
     if (teacherId > 0) {
       setCorrectAuth(true)
-      // navigate("")
+      navigate("/test-creating")
     }
     setCorrectAuth(false)
   }
