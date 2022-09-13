@@ -7,6 +7,7 @@ import TestSolving from './components/TestSolving';
 
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
+import LoggedTeacherView from './components/TeacherPanel/TeacherPanel';
 import CreateQuestionCard from './components/CreateQuestionCard';
 import QuestionCard from './components/QuestionCard';
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="test-solving" element={<TestSolving />} />
           <Route path="test-creating" element={<TestCreating />} />
+          <Route path="teacher-panel" element={<LoggedTeacherView/>}/>
         </Routes>
       </BrowserRouter>
     </div>
