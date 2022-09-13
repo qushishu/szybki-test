@@ -16,7 +16,7 @@ const TeacherLogin = () => {
 
   let navigate = useNavigate()
   const navigateToForgotPassword = () => {
-    navigate("/forgot-password")
+    navigate("/forgot-password");
   }
 
   async function Authorize() {

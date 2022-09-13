@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { fetchQuizQuestions, getQuizQuestionss, Pytanie, Odpowiedz } from './../API';
-
+import { useNavigate,useLocation } from "react-router-dom";
 
 //Components
 import QuestionCard from './QuestionCard';
@@ -17,37 +17,34 @@ const TOTAL_QUESTIONS = 2;
 const TestSolving = () => {
 
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState<QuestionState[]>([])
   const [number, setNumber] = useState(0)
-  const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0);
-  const [gameOver, setGameOver] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
   const [answers, setAnswers] = useState<Pytanie[]>([]);
   const [next,setNext]= useState(false);
   const [correctAns,setCorrectAns] = useState(0);
+  const [start,setStart] = useState(false);
+  const [userAnswer,setUserAnswer]=useState("");
+
+  const {state} = useLocation();
+  const testId=(state as {id:number}).id
 
   const startTrivia = async () => {
     setLoading(true);
-    setGameOver(false);
-    const newQuestions = await fetchQuizQuestions(
-      TOTAL_QUESTIONS,
-      Difficulty.EASY
-    );
+    setStart(true);
     //setstr(await xd());
-    const getOdp = await getQuizQuestionss();
+    const getOdp = await getQuizQuestionss(testId);
     setAnswers(getOdp);
-    setQuestions(newQuestions);
     setScore(0);
-    setUserAnswers([]);
     setNumber(0);
     setLoading(false);
   }
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(e.currentTarget.value);
-
     if(!gameOver ){
       const answer = e.currentTarget.value;
+      setUserAnswer("Wybrano: "+answer);
       for(let i=0;i<4;i++){
         if(answers[number].odpowiedzi[i].tresc==answer && answers[number].odpowiedzi[i].czyPoprawna){
             console.log("dobra odpowiedz");
@@ -63,12 +60,13 @@ const TestSolving = () => {
   }
 
   const nextQuestion = () => {
+    setUserAnswer("");
     setNext(false);
     //move on to the next questions if not the last questio
     const pkt=score+correctAns;
     setScore(pkt);
     const nextQuestion = number + 1;
-    if (nextQuestion === TOTAL_QUESTIONS) {
+    if (nextQuestion === answers.length) {
       setGameOver(true);
       console.log("pkt:"+pkt);
     }
@@ -81,27 +79,38 @@ const TestSolving = () => {
   return (
     <div>
       <h1>REACT QUIZ</h1>
+      
 
-      {gameOver || userAnswers.length == TOTAL_QUESTIONS ? (
-        <div>
-          <h2>Wynik: {score}</h2>
-        <button className='start' onClick={startTrivia}>
-          start
-        </button>
-        </div>
-      ) : null}
+        {gameOver && 
+         <div id="score-div">
+          <h2>Wynik: {score} / {answers.length} pkt</h2>
+          <p >Wysłano wyniki testu do nauczyciela...</p>
+        </div> }
+
+       {!gameOver &&  !start &&
+          <button className='start' onClick={startTrivia}>
+            Uruchom test
+          </button>
+       }
       {/* {!gameOver ? <p className='score'>Score: {score}</p> : null} */}
-      {loading && <p>Loading Questions ...</p>}
+      {loading && <p id="score-div">Loading Questions ...</p>}
       {!loading && !gameOver && number < answers.length && (
         <QuestionCard
           questionNr={number + 1}
-          totalQuestions={TOTAL_QUESTIONS}
+          totalQuestions={answers.length}
           callback={checkAnswer}
           odpowiedzi={answers}
-        />)}
+        />
+          
+        )}
+        
       {!gameOver && !loading && next ? (
         <button className="next" onClick={nextQuestion}>Next Question</button>
       ) : null}
+      
+      <div id="score-div">
+        <p>{userAnswer}</p>
+        </div>
     </div>
   )
 }

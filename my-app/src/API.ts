@@ -4,6 +4,11 @@ import { json } from "stream/consumers";
 import { BlobOptions } from "buffer";
 import { type } from "os";
 
+export type Token={
+    id:number;
+    token:string;
+}
+
 export type Test={
     name:string;
     isActive:boolean;
@@ -62,9 +67,9 @@ export const fetchQuizQuestions = async(amount: number,difficulty: Difficulty) =
 }
 
 
-export const getQuizQuestionss = async() =>{
+export const getQuizQuestionss = async(testId:number) =>{
     
-    const endpoint = 'http://localhost:8080/pytania/dotestu?testId=1';
+    const endpoint = 'http://localhost:8080/pytania/dotestu?testId='+testId;
     const data = await(await fetch(endpoint)).json();
     console.log(data);
     const pytania:Pytanie[] = data;
@@ -84,5 +89,11 @@ export const getQuizAnswers= async(pytanieId:number)=>{
     return odpowiedzi;
 }
 
+export const getTests = async()=>{
+    const endpoint = 'http://localhost:8080/testy';
+    const data = await(await fetch(endpoint)).json();
+    const testy:Token[]=data;
+    return testy;
+}
 
 

@@ -2,6 +2,7 @@ import './TeacherPanel.css';
 import { Test } from "../../API"
 import editIcon from "../../assets/images/Edit_icon.png"
 import exportIcon from "../../assets/images/Export_icon.png"
+import { Tooltip } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 const CreatedTests = () => {
@@ -16,10 +17,12 @@ const CreatedTests = () => {
     tests.push({ name: "Test2", isActive: true })
     tests.push({ name: "Test3", isActive: false })
 
-    function activateTest(test: Test) {
+    let navigate=useNavigate();
+
+    function activateTest(test:Test){
         //TODO: activate test
-        alert("TODO: activate test. " + test.name)
-    }
+        alert("TODO: activate test. "+test.name)
+        navigate('/test-creating', { state: { id: 1 } });
 
     function closeTest(test: Test) {
         //TODO: close test
