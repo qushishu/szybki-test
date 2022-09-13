@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import CreateQuestionCard, { questionType } from './CreateQuestionCard'
 import './CreateQuestionCard.css'
+import { useNavigate,useLocation } from "react-router-dom";
 
 const TestCreating = () => {
 
@@ -8,6 +9,10 @@ const TestCreating = () => {
   const [tab, setTab] = useState<questionType[]>([]);
   const [pytania, setPytania] = useState<React.ReactElement[]>([<CreateQuestionCard key={ilePytan} questionNr={ilePytan} question={tab} />]);
   const [pytanieId, setPytanieId] = useState(0);
+
+  const {state} = useLocation();
+
+  const testId=(state as {id:number}).id
 
   function addQuestion() {
     setilePytan(ilePytan + 1);
@@ -31,7 +36,7 @@ const TestCreating = () => {
       console.log(tab[j]);
       const pytaniePost = {
         "id": j + 1,
-        "testId": 1,
+        "testId": testId,
         "tresc": tab[j].question
       }
 

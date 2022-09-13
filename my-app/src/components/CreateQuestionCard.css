@@ -2,7 +2,7 @@
     max-width: 1100px;
     background: #ffffff;
     border-radius: 10px;
-    border: 2px solid #a3006d;
+    border: 2px solid #000000;
     padding: 20px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
     text-align: center;
@@ -20,9 +20,9 @@ button {
     width: 100px;
     height: 40px;
     margin: 5px 0;
-    background: #5c1394;
+    background: #b39ddb;
     color: white;
-    border: 2px solid #f4f4f4;
+    border: 2px solid #000000;
 }
 
 input[type=textarea] {
@@ -95,15 +95,19 @@ div .start,
 .next {
     cursor: pointer;
     color: black;
-    background: linear-gradient(180deg, #fff, #ffcc91);
-    border: 2px solid #d38558;
+    background: #fff;
+    border: 2px solid #000000;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     height: 40px;
     margin: 20px 0;
     padding: 0 40px;
 }
-
+div .start,
+.next:hover{
+    background-color: #b39ddb;
+    color: white;
+}
 div .start {
     max-width: 200px;
 }
