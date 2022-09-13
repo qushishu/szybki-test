@@ -1,9 +1,15 @@
 version: '3.1'
 services:
-  app:
+  frontend:
+    build: ./szybki-test
+    container_name: frontend
+    image: 'frontend'
+    ports:
+      - "3000:3000"
+  backend:
     container_name: backend
     image: 'backend'
-    build: ./
+    build: ./backend
     ports:
       - "8080:8080"
     depends_on:

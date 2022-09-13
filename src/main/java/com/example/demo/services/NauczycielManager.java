@@ -20,4 +20,7 @@ public class NauczycielManager {
     public Optional<Nauczyciel> findById(Long id) {
         return nauczycielRepository.findById(id);
     }
+    public Optional<Nauczyciel> findByLogin(String login) {
+        return nauczycielRepository.findAll().stream().filter($ -> $.getLogin().getLogin().equals(login)).findFirst();
+    }
 }

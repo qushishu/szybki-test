@@ -29,6 +29,11 @@ public class LoginApi {
         return loginRepository.findAll();
     }
 
+    @GetMapping(path = "/auth")
+    public Long authorize(@RequestParam String login, @RequestParam String password) {
+        return loginManager.findNauczyciel(login, password);
+    }
+
     @PostMapping
     public Login saveLogin(@RequestBody Login login){
         return loginRepository.save(login);
