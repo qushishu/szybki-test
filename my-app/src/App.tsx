@@ -10,6 +10,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import LoggedTeacherView from './components/TeacherPanel/TeacherPanel';
 import CreateQuestionCard from './components/CreateQuestionCard';
 import QuestionCard from './components/QuestionCard';
+import TeacherPanel from './components/TeacherPanel/TeacherPanel';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
@@ -22,7 +23,9 @@ function App() {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="test-solving" element={<TestSolving />} />
           <Route path="test-creating" element={<TestCreating />} />
-          <Route path="teacher-panel" element={<LoggedTeacherView/>}/>
+          <Route path="teacher-panel" >
+            <Route path=":teacherId" element={<TeacherPanel />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
