@@ -2,7 +2,17 @@ import { shuffleArray } from "./utils";
 import React ,{useState} from 'react';
 import { json } from "stream/consumers";
 import { BlobOptions } from "buffer";
+import { type } from "os";
 
+export type Test={
+    name:string;
+    isActive:boolean;
+}
+
+export type TestResults={
+    name:string;
+    closeDate:Date;
+}
 
 export type Question={
     category: string;

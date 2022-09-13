@@ -1,0 +1,46 @@
+.teacherPanel{
+    width: 100vw;
+}
+
+.fullWidth{
+    width: 100%;
+    height: auto;
+}
+
+.flexRow{
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.small-image{    
+    height: 50px;
+    width: 50px;
+}
+
+.icon{    
+    height: 30px;
+    width: 30px;
+}
+
+.pane{
+    height: auto;
+    background-color: #b39ddb;
+    border: 2px solid black;
+}
+
+/* teacherPanelButton */
+.tpButton{
+    height: 100%;
+    margin: 0px;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    border-top: 1px solid #808080;
+    font-size: large;
+}
+
+.tpButton:hover{
+    background-color: #b39ddb;
+    color: white;
+}
