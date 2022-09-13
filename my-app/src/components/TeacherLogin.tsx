@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Route, useNavigate } from "react-router-dom";
+import TeacherPanel from "./TeacherPanel/TeacherPanel";
+
 
 const auth = async (login: string, password: string) => {
   const endpoint = 'http://localhost:8080/loginy/auth?login=' + login + '&password=' + password;
@@ -9,9 +11,9 @@ const auth = async (login: string, password: string) => {
 }
 
 const TeacherLogin = () => {
-  let inputLogin = ''
-  let inputPassword = ''
-  let teacherId: number
+  const [inputLogin, setInputLoggin] = useState('')
+  const [inputPassword, setInputPassword] = useState('')
+
   let navigate = useNavigate()
   const navigateToForgotPassword = () => {
     navigate("/forgot-password")
@@ -19,28 +21,21 @@ const TeacherLogin = () => {
 
   async function Authorize() {
     //  API request
-    teacherId = await auth(inputLogin, inputPassword)
-    if (teacherId > 0) {
-      setCorrectAuth(true)
-      navigate("/test-creating")
+    let temp = await auth(inputLogin, inputPassword)
+    if (temp > 0) {
+      setCorrectAuth(true);
+
+      navigate('/teacher-panel/' + temp)
+      // navigate('/teacher-panel', { state: { teacherId: 1 } })
     }
     setCorrectAuth(false)
   }
-
-  const UpdateLogin = (login: any) => {
-    inputLogin = login.target.value
-  }
-
-  const UpdatePassword = (password: any) => {
-    inputPassword = password.target.value
-  }
-
   const [correctAuth, setCorrectAuth] = useState(true)
 
   return (
     <div>
-      <input type="text" id="login" placeholder="Login" required onChange={login => UpdateLogin(login)} />
-      <input type="password" id="password" placeholder="Hasło" required onChange={password => UpdatePassword(password)} />
+      <input type="text" id="login" placeholder="Login" required onChange={login => setInputLoggin(login.target.value)} />
+      <input type="password" id="password" placeholder="Hasło" required onChange={password => setInputPassword(password.target.value)} />
       <div className="forgot_password" onClick={navigateToForgotPassword}>
         Nie pamiętam hasła
       </div>
