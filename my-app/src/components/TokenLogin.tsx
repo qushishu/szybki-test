@@ -1,17 +1,19 @@
-import React, { useState,useRef } from "react";
-import { getTests,Token } from "../API";
+import React, { useState, useRef } from "react";
+import { getTests, Token } from "../API";
 import { useNavigate } from "react-router-dom";
 const TokenLogin = () => {
-  let navigate=useNavigate();
+  let navigate = useNavigate();
 
-  const authorize = async() => {
+  const authorize = async () => {
     //  API request
     console.log(token);
-    const testy:Token[]= await getTests();
-    for(let i=0;i<testy.length;i++){
-      if(token == testy[i].token){
+    const testy: Token[] = await getTests();
+    const indeks: string = token.slice(0, 6)
+    const testToken: string = token.slice(6)
+    for (let i = 0; i < testy.length; i++) {
+      if (testToken == testy[i].token) {
         setCorrectAuth(true);
-        navigate('/test-solving', { state: { id: testy[i].id } });
+        navigate('/test-solving', { state: { id: testy[i].id, indeks: indeks } });
         break;
       }
     }
@@ -19,7 +21,7 @@ const TokenLogin = () => {
     setCorrectAuth(false)
   }
 
-  function getToken(val: React.ChangeEvent<HTMLInputElement>){
+  function getToken(val: React.ChangeEvent<HTMLInputElement>) {
     setToken(val.target.value);
   }
   const [correctAuth, setCorrectAuth] = useState(true)
