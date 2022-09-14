@@ -20,7 +20,6 @@ const CreatedTests = () =>{
     function activateTest(test:Test){
         //TODO: activate test
         alert("TODO: activate test. "+test.name)
-        navigate('/test-creating', { state: { id: 1 } });
     }
 
     function closeTest(test:Test){
@@ -65,6 +64,7 @@ const CreatedTests = () =>{
       function createTest(){
         //TODO: load createTestPage
         alert("TODO: load createTestPage")
+        navigate('/test-creating', { state: { id: 1 } });
       }
 
     return(

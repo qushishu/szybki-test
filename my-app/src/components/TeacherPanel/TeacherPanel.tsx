@@ -4,8 +4,9 @@ import userimgtemplate from "../../assets/images/user.png"
 import { useEffect, useState } from 'react';
 import CreatedTests from './CreatedTests';
 import TestsResults from './TestsResults';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { useParams } from "react-router-dom";
+import { getTeacherTests, Token } from '../../API';
 
 export interface IdTeacher {
     teacherId: number
@@ -14,15 +15,15 @@ export interface IdTeacher {
 
 const TeacherPanel = () => {
     //TODO: pass auth teacher data
-    let navigate = useNavigate()
+    const {state} = useLocation();
+    const teacherId=(state as { teacherId:number}).teacherId;
     const id = useParams();
     useEffect(() => {
         (async () => {
-            console.log(id.teacherId) // this is Tacher ID after login
+            console.log(teacherId);
         })();
     }, []);
 
-    // navigate('/teacher-panel/'+ props.teacherId)
     let name = "Imie"
     let last_name = "Nazwisko"
     let userImg = userimgtemplate //switch to user image if available
@@ -46,8 +47,8 @@ const TeacherPanel = () => {
                     <button className="tpButton fullWidth" onClick={() => setloadedPageContent(TestsResults)}>Wyniki testów</button>
                 </div>
                 <div className="pane" style={{ width: "75%", minWidth: "200px" }}>
-                    {loadedPageContent}
-                </div>
+                    {loadedPageContent}                 
+                </div>      
             </div>
         </div>
     );

@@ -96,4 +96,13 @@ export const getTests = async()=>{
     return testy;
 }
 
+export const getTeacherTests = async(teacherId:number)=>{
+    const endpoint = 'http://localhost:8080/testy/donauczyciela?nauczycielId='+teacherId;
+    const data = await(await fetch(endpoint)).json();
+    const testy:Token[]=data;
+    return testy;
+}
+
+
+
 

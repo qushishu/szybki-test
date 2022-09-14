@@ -25,8 +25,8 @@ const TeacherLogin = () => {
     if (temp > 0) {
       setCorrectAuth(true);
 
-      navigate('/teacher-panel/' + temp)
-      // navigate('/teacher-panel', { state: { teacherId: 1 } })
+      //navigate('/teacher-panel/' + temp)
+      navigate('/teacher-panel', { state: { teacherId: temp } })
     }
     setCorrectAuth(false)
   }
