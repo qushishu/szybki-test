@@ -22,8 +22,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="test-solving" element={<TestSolving />} />
-          <Route path="test-creating" element={<TestCreating />} />
-          <Route path="teacher-panel" >
+          <Route path="test-creating" element={<TestCreating/>} />
+          <Route path="teacher-panel" element={<TeacherPanel />}>
             <Route path=":teacherId" element={<TeacherPanel />} />
           </Route>
         </Routes>

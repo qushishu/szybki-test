@@ -1,14 +1,13 @@
-import './TeacherPanel.css';
 import {Test} from "../../API"
 import editIcon from "../../assets/images/Edit_icon.png"
 import exportIcon from "../../assets/images/Export_icon.png"
-import { Tooltip } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import binIcon from "../../assets/images/Bin_icon.png"
+import ActivateTest from './ActivateTest';
+import {borderColor, TeacherPanelData } from './TeacherPanel';
 
-const CreatedTests = () =>{
+const CreatedTests = (tpData:TeacherPanelData) =>{
 
     let tests:Array<Test> = []
-    let navigate=useNavigate();
     // Testing array
     tests.push({name:"Test1",isActive:false})
     tests.push({name:"Test2",isActive:true})
@@ -19,8 +18,7 @@ const CreatedTests = () =>{
 
     function activateTest(test:Test){
         //TODO: activate test
-        alert("TODO: activate test. "+test.name)
-        navigate('/test-creating', { state: { id: 1 } });
+        tpData.loadedPageContent(ActivateTest(tpData,test.name));
     }
 
     function closeTest(test:Test){
@@ -29,8 +27,13 @@ const CreatedTests = () =>{
     }
 
     function editTest(test:Test){
-        //TODO: edit test
-        alert("TODO: edit test. "+test.name)
+        if(test.isActive){
+            alert("Nie można edytować aktywnego testu.")
+        }
+        else{
+            //TODO: edit test
+            tpData.navigate('/test-creating', { state: { id: 1 } });
+        }
     }
 
     function exportTest(test:Test){      
@@ -38,15 +41,29 @@ const CreatedTests = () =>{
         alert("TODO: export test. "+test.name)
     }
 
+    function deleteTest(test:Test){
+        //TODO: delete test
+        if(test.isActive){
+            alert("Nie można usunąć aktywnego testu.")
+        }
+        else{
+            alert("TODO: delete test")
+        }
+    }
+
     function loadTests(){
         //get teacher test as Array<Test>
-        let tests_objects = tests.map((test) => (
-        <div className='fullWidth flexRow' style={{borderTop:"1px solid #808080", padding:"5px"}}>
-            {test.name} {test.isActive ? "(Aktywny)": ""}
-            <div className='flexRow'>
-                <button className='tpButton' style={{border:"1px solid black",width:"150px"}} onClick={test.isActive ? ()=>closeTest(test):()=>activateTest(test)}>{test.isActive ? "Zakończ test":"Aktywuj test"}</button>
-                <button className='tpButton' style={{border:"1px solid black", padding:"2px"}} onClick={()=> editTest(test)}><img className="icon" src={editIcon}/></button>
-                <button className='tpButton' style={{border:"1px solid black", padding:"2px"}} onClick={()=> exportTest(test)}><img className="icon" src={exportIcon}/></button>
+        let tests_objects = tests.map((test,i) => (
+        <div className='fullWidth flexRow' style={{borderTop:borderColor, padding:"5px", paddingLeft:"20px"}} key={i}>
+            <div className="flexRow">
+                <b>Nazwa testu:</b>{test.name} 
+                <b>{test.isActive ? "(Aktywny)": ""}</b>
+            </div>
+            <div className='flexRow' style={{justifyContent:"space-around", padding:"10px", height:"60px"}}>
+                <button style={{width:"150px"}} onClick={test.isActive? ()=>closeTest(test) : ()=>activateTest(test)}>{test.isActive? "Zakończ test":"Aktywuj test"}</button>
+                <button onClick={()=> editTest(test)}><img className="icon" src={editIcon}/></button>
+                <button onClick={()=> exportTest(test)}><img className="icon" src={exportIcon}/></button>
+                <button onClick={()=> deleteTest(test)}><img className="icon" src={binIcon}/></button>
             </div>
         </div>
         ))
@@ -64,20 +81,21 @@ const CreatedTests = () =>{
     
       function createTest(){
         //TODO: load createTestPage
-        alert("TODO: load createTestPage")
+        // alert("TODO: load createTestPage")
+        tpData.navigate('/test-creating', { state: { id: 1 } });
       }
 
     return(
         <div className="fullWidth">
             <h3>Utworzone testy</h3>
-            <>
+            
             {loadTests()}         
-            </>
+            
 
 
-            <div className="fullWidth flexRow">
-                <button className="tpButton" style={{width:"60%"}} onClick={createTest}>Nowy test</button>
-                <button className="tpButton" style={{width:"40%", borderLeft:"1px solid #bebebe"}} onClick={importTest}>Importuj test</button>
+            <div className="fullWidth flexRow" style={{height:"60px"}}>
+                <button style={{width:"60%", border:"none", borderTop:borderColor}} onClick={createTest}>Nowy test</button>
+                <button style={{width:"40%", border:"none", borderLeft:borderColor, borderTop:borderColor}} onClick={importTest}>Importuj test</button>
             </div>
         </div>
       );

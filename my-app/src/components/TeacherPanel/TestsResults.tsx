@@ -1,7 +1,9 @@
-import './TeacherPanel.css';
 import {TestResults} from "../../API"
+import { borderColor, TeacherPanelData } from './TeacherPanel';
+import SingleTestsResults from './SingleTestResults';
 
-const TestsResults = () =>{
+
+const TestsResults = (tpData:TeacherPanelData) =>{
 
     let tests:Array<TestResults> = []
 
@@ -11,9 +13,7 @@ const TestsResults = () =>{
     tests.push({name:"Test3",closeDate:new Date()})
 
     function showResults(testResults:TestResults){
-        //TODO: show results
-        alert("TODO: show results. "+testResults.name)
-
+        tpData.loadedPageContent(SingleTestsResults(tpData,testResults.name))
     }
 
     function exportResults(testResults:TestResults){
@@ -24,12 +24,17 @@ const TestsResults = () =>{
 
     function loadTestsResults(){
         //get teacher results as Array<TestResults>
-        let tests_objects = tests.map((test) => (
-            <div className='fullWidth flexRow' style={{borderTop:"1px solid #808080", padding:"5px"}}>
-                {test.name} {test.closeDate.toTimeString()}
+        let tests_objects = tests.map((test,i) => (
+            <div className='fullWidth flexRow' style={{borderTop:borderColor, padding:"5px", paddingLeft:"20px"}} key={i}>
+                <div className="flexRow">
+                    <b>Nazwa testu:</b>{test.name} 
+                </div>
+                <div className="flexRow">
+                    <b>Data zakończenia:</b> {test.closeDate.toTimeString()}
+                </div>
                 <div className='flexRow'>
-                    <button className='tpButton' style={{border:"1px solid black",width:"150px"}} onClick={() => showResults(test)}>Pokaz wyniki</button>
-                    <button className='tpButton' style={{border:"1px solid black",width:"150px"}} onClick={() => exportResults(test)}>Eksportuj wyniki</button>
+                    <button style={{width:"150px"}} onClick={() => showResults(test)}>Pokaz wyniki</button>
+                    <button style={{width:"150px"}} onClick={() => exportResults(test)}>Eksportuj wyniki</button>
                 </div>
             </div>
             ))
@@ -42,9 +47,9 @@ const TestsResults = () =>{
 
       return(
         <div className="fullWidth">
-          <h3>Wyniki testów</h3>
+            <h3>Zakończone testy</h3>
 
-                {loadTestsResults()}
+            {loadTestsResults()}
         
         </div>
       );
