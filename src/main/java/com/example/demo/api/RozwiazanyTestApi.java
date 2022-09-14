@@ -1,8 +1,11 @@
 package com.example.demo.api;
 
 import com.example.demo.model.RozwiazanyTest;
+import com.example.demo.model.Test;
 import com.example.demo.repository.RozwiazanyTestRepository;
+import com.example.demo.repository.TestRepository;
 import com.example.demo.services.RozwiazanyTestManager;
+import com.example.demo.wrapper.RozwiazanyTestWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,9 @@ public class RozwiazanyTestApi {
     @Autowired
     private RozwiazanyTestRepository rozwiazanyTestRepository;
 
+    @Autowired
+    private TestRepository testRepository;
+
     @GetMapping(value = "/{rozwiazanyTestId}")
     public Optional<RozwiazanyTest> findById(@RequestParam Long loginId) {
         return rozwiazanyTestRepository.findById(loginId);
@@ -30,8 +36,14 @@ public class RozwiazanyTestApi {
     }
 
     @PostMapping
-    public RozwiazanyTest saveRozwiazanyTest(@RequestBody RozwiazanyTest rozwiazanyTest){
-        return rozwiazanyTestRepository.save(rozwiazanyTest);
+    public RozwiazanyTest saveRozwiazanyTest(@RequestBody RozwiazanyTestWrapper rozwiazanyTest){
+        Test test = testRepository.findById(rozwiazanyTest.getTest_id()).orElseThrow();
+        RozwiazanyTest rT = RozwiazanyTest.builder()
+                .id(rozwiazanyTest.getId())
+                .indeks(rozwiazanyTest.getIndeks())
+                .test(test)
+                .build();
+        return rozwiazanyTestRepository.save(rT);
     }
 
     @PutMapping
