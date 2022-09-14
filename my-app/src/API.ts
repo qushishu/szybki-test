@@ -1,25 +1,25 @@
 import { shuffleArray } from "./utils";
-import React ,{useState} from 'react';
+import React, { useState } from 'react';
 import { json } from "stream/consumers";
 import { BlobOptions } from "buffer";
 import { type } from "os";
 
-export type Token={
-    id:number;
-    token:string;
+export type Token = {
+    id: number;
+    token: string;
 }
 
-export type Test={
-    name:string;
-    isActive:boolean;
+export type Test = {
+    name: string;
+    isActive: boolean;
 }
 
-export type TestResults={
-    name:string;
-    closeDate:Date;
+export type TestResults = {
+    name: string;
+    closeDate: Date;
 }
 
-export type Question={
+export type Question = {
     category: string;
     correct_answer: string;
     difficulty: string;
@@ -28,71 +28,72 @@ export type Question={
     type: string;
 }
 
-export type Odpowiedz={
-    tresc:string
+export type Odpowiedz = {
+    id: number
+    tresc: string
     czyPoprawna: Boolean
 }
 
-export type Pytanie={
+export type Pytanie = {
     // czasTrwania: Date;
     // dataUruchomienia: Date;
     // dataZakonczenia: Date;
     // id: number;
     // nauczyciel : any;
     id: number
-    tresc:string
-    odpowiedzi:Odpowiedz[]
+    tresc: string
+    odpowiedzi: Odpowiedz[]
 }
 
-export type QuestionState = Question & { answers: string[]};
+export type QuestionState = Question & { answers: string[] };
 
-export enum Difficulty{
-    EASY="easy",
-    MEDIUM="medium",
-    HARD="hard",
+export enum Difficulty {
+    EASY = "easy",
+    MEDIUM = "medium",
+    HARD = "hard",
 }
 
 
-export const fetchQuizQuestions = async(amount: number,difficulty: Difficulty) => {
-    const endpoint = 'https://opentdb.com/api.php?amount='+amount+'&difficulty='+difficulty+'&type=multiple';
+export const fetchQuizQuestions = async (amount: number, difficulty: Difficulty) => {
+    const endpoint = 'https://opentdb.com/api.php?amount=' + amount + '&difficulty=' + difficulty + '&type=multiple';
 
     const data = await (await fetch(endpoint)).json();
     console.log(data);
-    return data.results.map((question :Question)=>(
+    return data.results.map((question: Question) => (
         {
             ...question,
-            answers: shuffleArray([...question.incorrect_answers,question.correct_answer])
+            answers: shuffleArray([...question.incorrect_answers, question.correct_answer])
         }
     ))
 }
 
 
-export const getQuizQuestionss = async(testId:number) =>{
-    
-    const endpoint = 'http://localhost:8080/pytania/dotestu?testId='+testId;
-    const data = await(await fetch(endpoint)).json();
+export const getQuizQuestionss = async (testId: number) => {
+
+    const endpoint = 'http://localhost:8080/pytania/dotestu?testId=' + testId;
+    const data = await (await fetch(endpoint)).json();
     console.log(data);
-    const pytania:Pytanie[] = data;
-    for(let i=0;i<pytania.length;i++){
-        const odpowiedzi:Odpowiedz[]=await getQuizAnswers(pytania[i].id);
-        pytania[i].odpowiedzi=odpowiedzi;
+    const pytania: Pytanie[] = data;
+    for (let i = 0; i < pytania.length; i++) {
+        const odpowiedzi: Odpowiedz[] = await getQuizAnswers(pytania[i].id);
+        pytania[i].odpowiedzi = odpowiedzi;
         console.log(pytania[i].odpowiedzi);
     }
     return pytania
 }
 
-export const getQuizAnswers= async(pytanieId:number)=>{
-    const endpoint = 'http://localhost:8080/odpowiedzi/dopytania?pytanieId='+pytanieId;
-    const data = await(await fetch(endpoint)).json();
-    const odpowiedzi:Odpowiedz[]=data;
+export const getQuizAnswers = async (pytanieId: number) => {
+    const endpoint = 'http://localhost:8080/odpowiedzi/dopytania?pytanieId=' + pytanieId;
+    const data = await (await fetch(endpoint)).json();
+    const odpowiedzi: Odpowiedz[] = data;
     //console.log(odpowiedzi);
     return odpowiedzi;
 }
 
-export const getTests = async()=>{
+export const getTests = async () => {
     const endpoint = 'http://localhost:8080/testy';
-    const data = await(await fetch(endpoint)).json();
-    const testy:Token[]=data;
+    const data = await (await fetch(endpoint)).json();
+    const testy: Token[] = data;
     return testy;
 }
 
