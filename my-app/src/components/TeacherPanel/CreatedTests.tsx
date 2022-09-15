@@ -5,19 +5,11 @@ import binIcon from "../../assets/images/Bin_icon.png"
 import {borderColor, TeacherPanelData } from './TeacherPanel';
 import { useEffect, useState } from "react";
 import TestCreatingTP from "./TestCreatingTP";
+import ActivateTest from "./ActivateTest";
 
 const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
-    const [tests,setTests] = useState<Test[]>([]);
+    const [tests,setTests] = useState<Test[]>([{nazwa:"Test1",isActive:false},{nazwa:"Test2",isActive:true}]);
     
-    // Testing array
-    // let tests:Array<Test> = []   
-    // tests.push({name:"Test1",isActive:false})
-    // tests.push({name:"Test2",isActive:true})
-    // tests.push({name:"Test3",isActive:false})
-    // tests.push({name:"Test1",isActive:false})
-    // tests.push({name:"Test2",isActive:true})
-    // tests.push({name:"Test3",isActive:false})
-
     useEffect(() => {
         (async () => {
             getTests();
@@ -27,12 +19,11 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
     const getTests = async () => {
         const teachersTest:Test[]= await getTeacherTests(tpData.teacherId as unknown  as number);
         //console.log(teachersTest[0].nazwa)
-        setTests([...tests,...teachersTest])
+        setTests([...teachersTest])
     }
 
     function activateTest(test:Test){
-        //TODO: activate test
-        // tpData.loadedPageContent(ActivateTest(tpData,test.name));
+        tpData.loadedPageContent(<ActivateTest tpData={tpData} testName={test.nazwa}/>);
     }
 
     function closeTest(test:Test){
@@ -46,7 +37,6 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
         }
         else{
             //TODO: edit test
-            // tpData.navigate('/test-creating', { state: { id: 1 } });
         }
     }
 
@@ -56,12 +46,12 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
     }
 
     function deleteTest(test:Test){
-        //TODO: delete test
         if(test.isActive){
             alert("Nie można usunąć aktywnego testu.")
         }
         else{
             alert("TODO: delete test")
+            // let index = tests.findIndex(test)
         }
     }
 
@@ -77,7 +67,6 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
             <div className='flexRow' style={{justifyContent:"space-around", padding:"10px", height:"60px"}}>
                 <button style={{width:"150px"}} onClick={test.isActive? ()=>closeTest(test) : ()=>activateTest(test)}>{test.isActive? "Zakończ test":"Aktywuj test"}</button>
                 <button onClick={()=> editTest(test)}><img className="icon" src={editIcon}/></button>
-                <button onClick={()=> exportTest(test)}><img className="icon" src={exportIcon}/></button>
                 <button onClick={()=> deleteTest(test)}><img className="icon" src={binIcon}/></button>
             </div>
         </div>
