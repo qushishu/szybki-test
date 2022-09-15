@@ -12,7 +12,7 @@ const ActivateTest = (tpData:TeacherPanelData, testName:string | undefined) =>{
 
     function activateTest(){
         //TODO switch test to active
-        tpData.loadedPageContent(CreatedTests(tpData))
+        tpData.loadedPageContent(<CreatedTests teacherId={tpData.teacherId} navigate={tpData.navigate} loadedPageContent={tpData.loadedPageContent} />)
     }
 
     return(

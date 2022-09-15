@@ -2,23 +2,25 @@ import {Test} from "../../API"
 import editIcon from "../../assets/images/Edit_icon.png"
 import exportIcon from "../../assets/images/Export_icon.png"
 import binIcon from "../../assets/images/Bin_icon.png"
-import ActivateTest from './ActivateTest';
 import {borderColor, TeacherPanelData } from './TeacherPanel';
+import { useState } from "react";
 
-const CreatedTests = (tpData:TeacherPanelData) =>{
+const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageContent}) =>{
+    const [tests,setTests] = useState<Test[]>([{name:"Test1",isActive:true}]);
 
-    let tests:Array<Test> = []
     // Testing array
-    tests.push({name:"Test1",isActive:false})
-    tests.push({name:"Test2",isActive:true})
-    tests.push({name:"Test3",isActive:false})
-    tests.push({name:"Test1",isActive:false})
-    tests.push({name:"Test2",isActive:true})
-    tests.push({name:"Test3",isActive:false})
+
+    // let tests:Array<Test> = []
+    // tests.push({name:"Test1",isActive:false})
+    // tests.push({name:"Test2",isActive:true})
+    // tests.push({name:"Test3",isActive:false})
+    // tests.push({name:"Test1",isActive:false})
+    // tests.push({name:"Test2",isActive:true})
+    // tests.push({name:"Test3",isActive:false})
 
     function activateTest(test:Test){
         //TODO: activate test
-        tpData.loadedPageContent(ActivateTest(tpData,test.name));
+        // tpData.loadedPageContent(ActivateTest(tpData,test.name));
     }
 
     function closeTest(test:Test){
@@ -32,7 +34,7 @@ const CreatedTests = (tpData:TeacherPanelData) =>{
         }
         else{
             //TODO: edit test
-            tpData.navigate('/test-creating', { state: { id: 1 } });
+            // tpData.navigate('/test-creating', { state: { id: 1 } });
         }
     }
 
@@ -82,7 +84,8 @@ const CreatedTests = (tpData:TeacherPanelData) =>{
       function createTest(){
         //TODO: load createTestPage
         // alert("TODO: load createTestPage")
-        tpData.navigate('/test-creating', { state: { id: 1 } });
+        // tpData.navigate('/test-creating', { state: { id: 1 } });
+        setTests([...tests,{name:"Test2",isActive:true}])
       }
 
     return(

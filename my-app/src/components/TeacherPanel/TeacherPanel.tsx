@@ -14,13 +14,13 @@ export interface IdTeacher {
 export type TeacherPanelData = {
     teacherId:string | undefined;
     navigate: NavigateFunction;
-    loadedPageContent:React.Dispatch<React.SetStateAction<React.ReactNode>>;
+    loadedPageContent:React.Dispatch<React.SetStateAction<React.ReactElement<any, string | React.JSXElementConstructor<any>> | undefined>>;
 }
 
 export const borderColor = "1px solid #aa33da"
 
 const TeacherPanel = () => {
-    const [loadedPageContent, setloadedPageContent] = useState<JSX.Element | React.ReactNode>();
+    const [loadedPageContent, setloadedPageContent] = useState<React.ReactElement>();
 
     //TODO: pass auth teacher data
     const id = useParams();
@@ -47,7 +47,7 @@ const TeacherPanel = () => {
     //if not authorized show no access page
 
     return (
-        <div className="teacherPanel" onLoad={() => setloadedPageContent(()=>CreatedTests(tpData))}>
+        <div className="teacherPanel" onLoad={() => setloadedPageContent(<CreatedTests teacherId={tpData.teacherId} navigate={tpData.navigate} loadedPageContent={tpData.loadedPageContent} />)}>
             <div className="pane fullWidth flexRow" style={{ padding: "10px", flexWrap:"nowrap" }} onClick={()=> tpData.navigate('/login')}>
                 <img className="small-image" src={logo} alt="logo" />
                 <h3>Panel nauczyciela, {name} {last_name}</h3>
@@ -56,7 +56,7 @@ const TeacherPanel = () => {
             <div className="fullWidth flexRow" style={{ justifyContent: "space-around", padding: "10px", alignItems: "start" }}>
                 <div className="pane menu" style={{ maxWidth: "20%", minWidth: "150px" }}>
                     <h3>Menu</h3>
-                    <button className="fullWidth" onClick={() => setloadedPageContent(()=>CreatedTests(tpData))}>Utworzone testy</button>
+                    <button className="fullWidth" onClick={() => setloadedPageContent(<CreatedTests teacherId={tpData.teacherId} navigate={tpData.navigate} loadedPageContent={tpData.loadedPageContent} />)}>Utworzone testy</button>
                     <button className="fullWidth" onClick={() => setloadedPageContent(()=>TestsResults(tpData))}>Zakończone testy</button>
                 </div>
                 <div className="pane" style={{ width: "80%", minWidth: "200px" }}>
