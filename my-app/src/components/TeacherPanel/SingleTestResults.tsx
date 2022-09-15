@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { TestResults } from '../../API';
 import { borderColor, TeacherPanelData } from './TeacherPanel';
 
 
@@ -7,23 +9,17 @@ type StudentResults = {
 }
 
 //add testId to passed parameters
-const SingleTestsResults = (tpData:TeacherPanelData,testName:string | undefined) =>{
-
-    let results:Array<StudentResults> = []
+const SingleTestsResults:React.FC<{tpData:TeacherPanelData,test:TestResults}> = ({tpData,test}) => {
+    const [studentResults,setStudentResults] = useState<StudentResults[]>([{name:"Student 1",percentGrade:100}]);
 
     // Testing array
-    results.push({name:"Student 1",percentGrade:100})
-    results.push({name:"Student 2",percentGrade:50})
-    results.push({name:"Student 3",percentGrade:10})
-    results.push({name:"Student 4",percentGrade:66})
-
     function showResults(results:StudentResults){
         //TODO show student results
         alert("TODO show student results")
     }
 
     function loadTestResults(){
-       let results_elements = results.map((result,i) => (
+       let results_elements = studentResults.map((result,i) => (
             <div className='fullWidth flexRow' style={{borderTop:borderColor, padding:"5px", paddingLeft:"20px"}} key={i}>
                 {result.name} ({result.percentGrade}%)
                 <div className='flexRow'>
@@ -40,7 +36,7 @@ const SingleTestsResults = (tpData:TeacherPanelData,testName:string | undefined)
 
       return(
         <div className="fullWidth">
-            <h3>Wyniki testu: {testName}</h3>
+            <h3>Wyniki testu: {test.name}</h3>
 
             {loadTestResults()}
         

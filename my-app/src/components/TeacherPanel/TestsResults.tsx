@@ -8,7 +8,7 @@ const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
     const [tests,setTests] = useState<TestResults[]>([{name:"Test1",closeDate:new Date()}]);
 
     function showResults(testResults:TestResults){
-        tpData.loadedPageContent(SingleTestsResults(tpData,testResults.name))
+        tpData.loadedPageContent(<SingleTestsResults tpData={tpData} test={testResults}/>)
     }
 
     function exportResults(testResults:TestResults){
