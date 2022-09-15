@@ -3,6 +3,7 @@ import CreateQuestionCard, { questionType } from './CreateQuestionCard'
 import './CreateQuestionCard.css'
 import { useNavigate,useLocation } from "react-router-dom";
 import { TeacherPanelData } from './TeacherPanel/TeacherPanel';
+import CreatedTests from './TeacherPanel/CreatedTests';
 
 const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
 
@@ -72,6 +73,11 @@ const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
           .then(() => console.log("POST fire"));
       }
     }
+
+    //if saved
+    tpData.loadedPageContent(<CreatedTests {...tpData}/>)
+    
+    alert("Can't save test")
   }
 
   return (

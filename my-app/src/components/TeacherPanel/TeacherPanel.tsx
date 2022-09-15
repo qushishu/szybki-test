@@ -34,7 +34,7 @@ const TeacherPanel = () => {
     }, []);
     
     let tpData:TeacherPanelData={
-        teacherId:" ", //insert teacher id
+        teacherId:id.teacherId, //insert teacher id
         navigate:useNavigate(),
         loadedPageContent:setloadedPageContent
     }
@@ -60,7 +60,6 @@ const TeacherPanel = () => {
                     <h3>Menu</h3>
                     <button className="fullWidth" onClick={() => setloadedPageContent(<CreatedTests {...tpData} />)}>Utworzone testy</button>
                     <button className="fullWidth" onClick={() => setloadedPageContent(<TestsResults {...tpData}/>)}>Zakończone testy</button>
-                    <button className="fullWidth" onClick={() => setloadedPageContent(<TestCreatingTP {...tpData} />)}>Nowy testy</button>
                 </div>
                 <div className="pane" style={{ width: "80%", minWidth: "200px" }}>
                     {loadedPageContent}

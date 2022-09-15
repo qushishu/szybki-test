@@ -4,8 +4,9 @@ import exportIcon from "../../assets/images/Export_icon.png"
 import binIcon from "../../assets/images/Bin_icon.png"
 import {borderColor, TeacherPanelData } from './TeacherPanel';
 import { useEffect, useState } from "react";
+import TestCreatingTP from "../TestCreatingTP";
 
-const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageContent}) =>{
+const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
     const [tests,setTests] = useState<Test[]>([]);
     
     // Testing array
@@ -24,7 +25,7 @@ const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageC
     }, []);
 
     const getTests = async () => {
-        const teachersTest:Test[]= await getTeacherTests(teacherId as unknown  as number);
+        const teachersTest:Test[]= await getTeacherTests(tpData.teacherId as unknown  as number);
         //console.log(teachersTest[0].nazwa)
         setTests([...tests,...teachersTest])
     }
@@ -98,6 +99,7 @@ const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageC
         // alert("TODO: load createTestPage")
         // tpData.navigate('/test-creating', { state: { id: 1 } });
         setTests([...tests,{nazwa:"Test2",isActive:true}])
+        tpData.loadedPageContent(<TestCreatingTP {...tpData} />)
       }
 
     return(
@@ -109,8 +111,7 @@ const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageC
 
 
             <div className="fullWidth flexRow" style={{height:"60px"}}>
-                <button style={{width:"60%", border:"none", borderTop:borderColor}} onClick={createTest}>Nowy test</button>
-                <button style={{width:"40%", border:"none", borderLeft:borderColor, borderTop:borderColor}} onClick={importTest}>Importuj test</button>
+                <button className="fullWidth" style={{border:"none", borderTop:borderColor}} onClick={createTest}>Nowy test</button>
             </div>
         </div>
       );
