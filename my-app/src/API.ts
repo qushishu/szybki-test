@@ -10,7 +10,7 @@ export type Token = {
 }
 
 export type Test = {
-    name: string;
+    nazwa: string;
     isActive: boolean;
 }
 
@@ -95,6 +95,13 @@ export const getTests = async () => {
     const data = await (await fetch(endpoint)).json();
     const testy: Token[] = data;
     return testy;
+}
+
+export const getTeacherTests = async (teacherId:number) => {
+    const endpoint = 'http://localhost:8080/testy/donauczyciela?nauczycielId=1';
+    const data = await (await fetch(endpoint)).json();
+    //const testy: Test[] = data;
+    return data;
 }
 
 

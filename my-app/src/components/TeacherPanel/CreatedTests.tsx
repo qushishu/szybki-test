@@ -1,22 +1,33 @@
-import {Test} from "../../API"
+import {getTeacherTests, Test} from "../../API"
 import editIcon from "../../assets/images/Edit_icon.png"
 import exportIcon from "../../assets/images/Export_icon.png"
 import binIcon from "../../assets/images/Bin_icon.png"
 import {borderColor, TeacherPanelData } from './TeacherPanel';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageContent}) =>{
-    const [tests,setTests] = useState<Test[]>([{name:"Test1",isActive:true}]);
-
+    const [tests,setTests] = useState<Test[]>([]);
+    
     // Testing array
+    // let tests:Array<Test> = []   
+    // tests.push({name:"Test1",isActive:false})
+    // tests.push({name:"Test2",isActive:true})
+    // tests.push({name:"Test3",isActive:false})
+    // tests.push({name:"Test1",isActive:false})
+    // tests.push({name:"Test2",isActive:true})
+    // tests.push({name:"Test3",isActive:false})
 
-    // let tests:Array<Test> = []
-    // tests.push({name:"Test1",isActive:false})
-    // tests.push({name:"Test2",isActive:true})
-    // tests.push({name:"Test3",isActive:false})
-    // tests.push({name:"Test1",isActive:false})
-    // tests.push({name:"Test2",isActive:true})
-    // tests.push({name:"Test3",isActive:false})
+    useEffect(() => {
+        (async () => {
+            getTests();
+        })();
+    }, []);
+
+    const getTests = async () => {
+        const teachersTest:Test[]= await getTeacherTests(teacherId as unknown  as number);
+        //console.log(teachersTest[0].nazwa)
+        setTests([...tests,...teachersTest])
+    }
 
     function activateTest(test:Test){
         //TODO: activate test
@@ -25,7 +36,7 @@ const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageC
 
     function closeTest(test:Test){
         //TODO: close test
-        alert("TODO: close test. "+test.name)
+        alert("TODO: close test. "+test.nazwa)
     }
 
     function editTest(test:Test){
@@ -40,7 +51,7 @@ const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageC
 
     function exportTest(test:Test){      
         //TODO: export test
-        alert("TODO: export test. "+test.name)
+        alert("TODO: export test. "+test.nazwa)
     }
 
     function deleteTest(test:Test){
@@ -54,11 +65,12 @@ const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageC
     }
 
     function loadTests(){
+        
         //get teacher test as Array<Test>
         let tests_objects = tests.map((test,i) => (
         <div className='fullWidth flexRow' style={{borderTop:borderColor, padding:"5px", paddingLeft:"20px"}} key={i}>
             <div className="flexRow">
-                <b>Nazwa testu:</b>{test.name} 
+                <b>Nazwa testu:</b>{test.nazwa} 
                 <b>{test.isActive ? "(Aktywny)": ""}</b>
             </div>
             <div className='flexRow' style={{justifyContent:"space-around", padding:"10px", height:"60px"}}>
@@ -85,7 +97,7 @@ const CreatedTests:React.FC<TeacherPanelData> = ({teacherId,navigate,loadedPageC
         //TODO: load createTestPage
         // alert("TODO: load createTestPage")
         // tpData.navigate('/test-creating', { state: { id: 1 } });
-        setTests([...tests,{name:"Test2",isActive:true}])
+        setTests([...tests,{nazwa:"Test2",isActive:true}])
       }
 
     return(
