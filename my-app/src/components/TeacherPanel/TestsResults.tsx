@@ -1,16 +1,11 @@
 import {TestResults} from "../../API"
 import { borderColor, TeacherPanelData } from './TeacherPanel';
 import SingleTestsResults from './SingleTestResults';
+import { useState } from "react";
 
 
-const TestsResults = (tpData:TeacherPanelData) =>{
-
-    let tests:Array<TestResults> = []
-
-    // Testing array
-    tests.push({name:"Test1",closeDate: new Date()})
-    tests.push({name:"Test2",closeDate:new Date()})
-    tests.push({name:"Test3",closeDate:new Date()})
+const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
+    const [tests,setTests] = useState<TestResults[]>([{name:"Test1",closeDate:new Date()}]);
 
     function showResults(testResults:TestResults){
         tpData.loadedPageContent(SingleTestsResults(tpData,testResults.name))

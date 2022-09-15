@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 
 import CreatedTests from './CreatedTests';
 import TestsResults from './TestsResults';
+import TestCreatingTP from '../TestCreatingTP';
+
 export interface IdTeacher {
     teacherId: number
 }
@@ -28,8 +30,8 @@ const TeacherPanel = () => {
         (async () => {
             console.log(id.teacherId) // this is Tacher ID after login
         })();
+        setloadedPageContent(<CreatedTests {...tpData}/>)
     }, []);
-
     
     let tpData:TeacherPanelData={
         teacherId:" ", //insert teacher id
@@ -47,17 +49,18 @@ const TeacherPanel = () => {
     //if not authorized show no access page
 
     return (
-        <div className="teacherPanel" onLoad={() => setloadedPageContent(<CreatedTests teacherId={tpData.teacherId} navigate={tpData.navigate} loadedPageContent={tpData.loadedPageContent} />)}>
-            <div className="pane fullWidth flexRow" style={{ padding: "10px", flexWrap:"nowrap" }} onClick={()=> tpData.navigate('/login')}>
-                <img className="small-image" src={logo} alt="logo" />
+        <div className="teacherPanel">
+            <div className="pane fullWidth flexRow" style={{ padding: "10px", flexWrap:"nowrap" }}>
+                <img className="small-image" src={logo} alt="logo" onClick={()=> tpData.navigate('/login')}/>
                 <h3>Panel nauczyciela, {name} {last_name}</h3>
                 <img className="small-image" src={userImg} alt="logo"/>
             </div>
             <div className="fullWidth flexRow" style={{ justifyContent: "space-around", padding: "10px", alignItems: "start" }}>
                 <div className="pane menu" style={{ maxWidth: "20%", minWidth: "150px" }}>
                     <h3>Menu</h3>
-                    <button className="fullWidth" onClick={() => setloadedPageContent(<CreatedTests teacherId={tpData.teacherId} navigate={tpData.navigate} loadedPageContent={tpData.loadedPageContent} />)}>Utworzone testy</button>
-                    <button className="fullWidth" onClick={() => setloadedPageContent(()=>TestsResults(tpData))}>Zakończone testy</button>
+                    <button className="fullWidth" onClick={() => setloadedPageContent(<CreatedTests {...tpData} />)}>Utworzone testy</button>
+                    <button className="fullWidth" onClick={() => setloadedPageContent(<TestsResults {...tpData}/>)}>Zakończone testy</button>
+                    <button className="fullWidth" onClick={() => setloadedPageContent(<TestCreatingTP {...tpData} />)}>Nowy testy</button>
                 </div>
                 <div className="pane" style={{ width: "80%", minWidth: "200px" }}>
                     {loadedPageContent}
