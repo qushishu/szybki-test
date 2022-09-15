@@ -7,14 +7,14 @@ import { useParams } from "react-router-dom";
 
 import CreatedTests from './CreatedTests';
 import TestsResults from './TestsResults';
-import TestCreatingTP from '../TestCreatingTP';
+import TestCreatingTP from './TestCreatingTP';
 
 export interface IdTeacher {
     teacherId: number
 }
 
 export type TeacherPanelData = {
-    teacherId:string | undefined;
+    teacherId:number;
     navigate: NavigateFunction;
     loadedPageContent:React.Dispatch<React.SetStateAction<React.ReactElement<any, string | React.JSXElementConstructor<any>> | undefined>>;
 }
@@ -34,7 +34,7 @@ const TeacherPanel = () => {
     }, []);
     
     let tpData:TeacherPanelData={
-        teacherId:id.teacherId, //insert teacher id
+        teacherId:id.teacherId as unknown as number, //insert teacher id
         navigate:useNavigate(),
         loadedPageContent:setloadedPageContent
     }

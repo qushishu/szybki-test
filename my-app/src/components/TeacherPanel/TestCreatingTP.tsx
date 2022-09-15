@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import CreateQuestionCard, { questionType } from './CreateQuestionCard'
-import './CreateQuestionCard.css'
+import CreateQuestionCard, { questionType } from '../CreateQuestionCard'
+import '../CreateQuestionCard.css'
 import { useNavigate,useLocation } from "react-router-dom";
-import { TeacherPanelData } from './TeacherPanel/TeacherPanel';
-import CreatedTests from './TeacherPanel/CreatedTests';
+import { TeacherPanelData } from './TeacherPanel';
+import CreatedTests from './CreatedTests';
 
 const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
 
   const [ilePytan, setilePytan] = useState(1);
   const [tab, setTab] = useState<questionType[]>([]);
+  const [testName,setTestName]=useState("");
   const [pytania, setPytania] = useState<React.ReactElement[]>([<CreateQuestionCard key={ilePytan} questionNr={ilePytan} question={tab} />]);
   const [pytanieId, setPytanieId] = useState(0);
 
   const {state} = useLocation();
 
   // const testId=(state as {id:number}).id
-  const testId=1
 
   function addQuestion() {
     setilePytan(ilePytan + 1);
@@ -33,8 +33,35 @@ const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
     setTab(newtab);
   }
 
+
+  const saveTest = async () =>{
+
+    const testPost={
+      "id": 0,
+      "nauczycielId": tpData.teacherId,
+      "token": Date.now().toString(),
+      "nazwa": testName,
+      "dataUruchomienia": "2022-09-15T19:59:41.432Z",
+      "dataZakonczenia": "2022-09-15T19:59:41.432Z",
+      "czasTrwania": "2022-09-15T19:59:41.432Z"
+    }
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(testPost)
+    };
+    
+    const data = await fetch('http://localhost:8080/testy', requestOptions).then(response => response.json());
+    console.log(data);
+    const test:{id:number}= data
+    return test.id;
+  }
+
   const saveQuesions = async () => {
     //console.log(tab[0].question);
+    const testId:number= await saveTest();
+    console.log("testid:"+testId);
     for (let j = 0; j < tab.length; j++) {
       console.log(tab[j]);
       const pytaniePost = {
@@ -80,9 +107,16 @@ const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
     alert("Can't save test")
   }
 
+  function getData(val: React.ChangeEvent<HTMLTextAreaElement>) {
+    const data = val.target.value;
+    setTestName(data);
+  }
+
+
   return (
     <div>
       <h1>Test Creating</h1>
+      <textarea name="test-name" id="test-name-id" cols={40} rows={1} placeholder="Wpisz tytuł testu..." onChange={getData}></textarea>
       {pytania}
       <div className='options'>
       <button onClick={addQuestion}>Dodaj pytanie</button>
