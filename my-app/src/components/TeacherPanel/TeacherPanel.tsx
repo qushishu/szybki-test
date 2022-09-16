@@ -59,7 +59,7 @@ const TeacherPanel = () => {
                 <div className="pane menu" style={{ maxWidth: "20%", minWidth: "150px" }}>
                     <h3>Menu</h3>
                     <button className="fullWidth" onClick={() => setloadedPageContent(<CreatedTests {...tpData} />)}>Utworzone testy</button>
-                    <button className="fullWidth" onClick={() => setloadedPageContent(<TestsResults {...tpData}/>)}>Zakończone testy</button>
+                    <button className="fullWidth" onClick={() => setloadedPageContent(<TestsResults {...tpData}/>)}>Wyniki testów</button>
                 </div>
                 <div className="pane" style={{ width: "80%", minWidth: "200px" }}>
                     {loadedPageContent}

@@ -42,7 +42,7 @@ const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
 
       return(
         <div className="fullWidth">
-            <h3>Zakończone testy</h3>
+            <h3>Wyniki testów</h3>
 
             {loadTestsResults()}
         
