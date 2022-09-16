@@ -1,19 +1,22 @@
-import {TestResults} from "../../API"
+import {Test} from "../../API"
 import { borderColor, TeacherPanelData } from './TeacherPanel';
 import SingleTestsResults from './SingleTestResults';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
-    const [tests,setTests] = useState<TestResults[]>([{name:"Test1",closeDate:new Date()}]);
+    const [tests,setTests] = useState<Test[]>([{id:0,nazwa:"Test1",isActive:true,token:"aa"}]);
 
-    function showResults(testResults:TestResults){
+    useEffect(()=>(
+        console.log("TODO get tests with results from db")
+    ))
+    function showResults(testResults:Test){
         tpData.loadedPageContent(<SingleTestsResults tpData={tpData} test={testResults}/>)
     }
 
-    function exportResults(testResults:TestResults){
+    function exportResults(testResults:Test){
         //TODO: export test
-        alert("TODO: export test. "+testResults.name)
+        alert("TODO: export test. "+testResults.nazwa)
 
     }
 
@@ -22,10 +25,7 @@ const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
         let tests_objects = tests.map((test,i) => (
             <div className='fullWidth flexRow' style={{borderTop:borderColor, padding:"5px", paddingLeft:"20px"}} key={i}>
                 <div className="flexRow">
-                    <b>Nazwa testu:</b>{test.name} 
-                </div>
-                <div className="flexRow">
-                    <b>Data zakończenia:</b> {test.closeDate.toTimeString()}
+                    <b>Nazwa testu:</b>{test.nazwa} 
                 </div>
                 <div className='flexRow'>
                     <button style={{width:"150px"}} onClick={() => showResults(test)}>Pokaz wyniki</button>

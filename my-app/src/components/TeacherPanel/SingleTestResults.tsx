@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TestResults } from '../../API';
+import { Test } from '../../API';
 import { borderColor, TeacherPanelData } from './TeacherPanel';
 
 
@@ -9,7 +9,7 @@ type StudentResults = {
 }
 
 //add testId to passed parameters
-const SingleTestsResults:React.FC<{tpData:TeacherPanelData,test:TestResults}> = ({tpData,test}) => {
+const SingleTestsResults:React.FC<{tpData:TeacherPanelData,test:Test}> = ({tpData,test}) => {
     const [studentResults,setStudentResults] = useState<StudentResults[]>([{name:"Student 1",percentGrade:100}]);
 
     // Testing array
@@ -36,7 +36,7 @@ const SingleTestsResults:React.FC<{tpData:TeacherPanelData,test:TestResults}> = 
 
       return(
         <div className="fullWidth">
-            <h3>Wyniki testu: {test.name}</h3>
+            <h3>Wyniki testu: {test.nazwa}</h3>
 
             {loadTestResults()}
         

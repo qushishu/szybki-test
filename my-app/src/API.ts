@@ -16,10 +16,6 @@ export type Test = {
     token:string;
 }
 
-export type TestResults = {
-    name: string;
-    closeDate: Date;
-}
 
 export type Question = {
     category: string;
