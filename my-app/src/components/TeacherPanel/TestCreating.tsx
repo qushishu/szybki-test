@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import CreateQuestionCard, { questionType } from '../CreateQuestionCard'
-import { useNavigate,useLocation } from "react-router-dom";
 import { TeacherPanelData } from './TeacherPanel';
 import CreatedTests from './CreatedTests';
 import './TeacherPanel.css';
@@ -12,10 +11,6 @@ const TestCreating:React.FC<TeacherPanelData> = (tpData) => {
   const [testName,setTestName]=useState("");
   const [pytania, setPytania] = useState<React.ReactElement[]>([<CreateQuestionCard key={ilePytan} questionNr={ilePytan} question={tab} />]);
   const [pytanieId, setPytanieId] = useState(0);
-
-  const {state} = useLocation();
-
-  // const testId=(state as {id:number}).id
 
   function addQuestion() {
     setilePytan(ilePytan + 1);
