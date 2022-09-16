@@ -36,9 +36,9 @@ const TeacherLogin = () => {
     <div>
       <input type="text" id="login" placeholder="Login" required onChange={login => setInputLoggin(login.target.value)} />
       <input type="password" id="password" placeholder="Hasło" required onChange={password => setInputPassword(password.target.value)} />
-      <div className="forgot_password" onClick={navigateToForgotPassword}>
+      {/* <div className="forgot_password" onClick={navigateToForgotPassword}>
         Nie pamiętam hasła
-      </div>
+      </div> */}
       <input type="submit" value="Zaloguj" onClick={Authorize} />
       {correctAuth ? <div>&nbsp;</div> : <div className="incorrect_data_label">Błędne dane logowania</div>}
     </div>

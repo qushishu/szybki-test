@@ -15,6 +15,8 @@
 }
 
 .teacher_login {
+    width: 100%;
+    height: 20px;
     color: black;
     margin-right: 50px;
     text-align: right;
@@ -84,7 +86,8 @@ button {
 
 .arrow {
     cursor: pointer;
-    position: absolute;
+    position: relative;
+    left: -60px;
     width: 50px;
     height: 50px;
 }
