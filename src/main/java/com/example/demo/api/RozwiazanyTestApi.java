@@ -5,6 +5,7 @@ import com.example.demo.model.Test;
 import com.example.demo.repository.RozwiazanyTestRepository;
 import com.example.demo.repository.TestRepository;
 import com.example.demo.services.RozwiazanyTestManager;
+import com.example.demo.wrapper.RozwiazanyTestIdNazwa;
 import com.example.demo.wrapper.RozwiazanyTestWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,11 @@ public class RozwiazanyTestApi {
     @GetMapping
     public List<RozwiazanyTest> findAll(){
         return rozwiazanyTestRepository.findAll();
+    }
+
+    @GetMapping(value = "/nazwa-id")
+    public List<RozwiazanyTestIdNazwa> findRozwiazanyTestIdNazwa() {
+        return rozwiazanyTestManager.getAllRozwiazanyTestIdNazwa();
     }
 
     @PostMapping
