@@ -6,12 +6,8 @@ import { useEffect, useState } from 'react';
 const ActivateTest:React.FC<{tpData:TeacherPanelData,testName:string}> = ({tpData,testName}) => {
     const[token,setToken] = useState<string>("")
     useEffect(()=>(
-        generateToken()
+        console.log("TODO get token from db")
     ))
-    
-    function generateToken(){
-        setToken(Date.now().toString()+testName)
-    }
 
     function activateTest(){
         //TODO switch test to active
@@ -30,7 +26,6 @@ const ActivateTest:React.FC<{tpData:TeacherPanelData,testName:string}> = ({tpDat
                         <b>Token:</b><input value={token} disabled></input>
                     </div>
                     <div className='fullWidth flexRow' style={{margin:"10px", justifyContent:"space-around"}}>
-                        <button onClick={()=>generateToken()}  style={{margin:"10px"}}>Wygeneruj nowy token</button>
                         <button onClick={()=>activateTest()}>Zatwierdź</button>
                     </div>
                 </div>
