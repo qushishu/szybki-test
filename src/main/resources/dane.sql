@@ -13,12 +13,12 @@ insert into nauczyciel (nauczyciel_id, name, surname, login_id) values (5, 'Nata
 insert into test (czas_trwania, data_uruchomienia, data_zakonczenia, nazwa, token, nauczyciel_id, czy_aktywny) values (30, '2022-09-14', '2022-09-16', 'test1', 'token', 1, true);
 insert into test (czas_trwania, data_uruchomienia, data_zakonczenia, nazwa, token, nauczyciel_id, czy_aktywny) values (30, '2022-09-14', '2022-09-16', 'test2', 'token2', 1, false);
 
-insert into pytanie (pytanie_id, tresc, test_id) values (1, 'ile to 2+2?', '1');
-insert into pytanie (pytanie_id, tresc, test_id) values (2, 'ile to 2+3?', '1');
-insert into pytanie (pytanie_id, tresc, test_id) values (3, 'ile to 3+3?', '1');
+insert into pytanie ( tresc, test_id) values ( 'ile to 2+2?', '1');
+insert into pytanie ( tresc, test_id) values ( 'ile to 2+3?', '1');
+insert into pytanie ( tresc, test_id) values ( 'ile to 3+3?', '1');
 
-insert into pytanie (pytanie_id, tresc, test_id) values (4, 'ile masz lat?', '2');
-insert into pytanie (pytanie_id, tresc, test_id) values (5, 'ile masz wzrostu?', '2');
+insert into pytanie ( tresc, test_id) values ( 'ile masz lat?', '2');
+insert into pytanie ( tresc, test_id) values ( 'ile masz wzrostu?', '2');
 
 insert into odpowiedz (czy_poprawna, tresc, pytanie_id) values (true, '4', 1);
 insert into odpowiedz (czy_poprawna, tresc, pytanie_id) values (false, '5', 1);
