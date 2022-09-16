@@ -10,10 +10,7 @@ import com.example.demo.wrapper.RozwiazanyTestIdNazwa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,17 +31,13 @@ public class RozwiazanyTestManager {
     }
 
     public List<RozwiazanyTestIdNazwa> getAllRozwiazanyTestIdNazwa(Long teacherId) {
-        Set<Long> rozwiazanyTestId = rozwiazanyTestRepository.findAll().stream().map(RozwiazanyTest::getId).collect(Collectors.toSet());
-        List<RozwiazanyTestIdNazwa> rozwiazanyTestIdNazwas = new ArrayList<>();
+        Set<Long> rozwiazanyTestId = rozwiazanyTestRepository.findAll().stream().filter($ -> $.getTest().getNauczyciel().getId().equals(teacherId)).map($ -> $.getTest().getId()).collect(Collectors.toSet());
+        List<RozwiazanyTestIdNazwa> rozwiazanyTestIdNazwas = new LinkedList<>();
         for (Long id: rozwiazanyTestId) {
-            Test test = testRepository.getById(id);
-            if (test.getNauczyciel().getId().equals(teacherId)) {
-                RozwiazanyTestIdNazwa rozwiazanyTestIdNazwa = RozwiazanyTestIdNazwa.builder()
-                        .Id(id)
-                        .nazwa(test.getNazwa())
-                        .build();
-                rozwiazanyTestIdNazwas.add(rozwiazanyTestIdNazwa);
-            }
+            System.out.println(id);
+            Test test = testRepository.findById(id).orElseThrow();
+            RozwiazanyTestIdNazwa rozwiazanyTestIdNazwa = RozwiazanyTestIdNazwa.builder().Id(id).nazwa(test.getNazwa()).build();
+            rozwiazanyTestIdNazwas.add(rozwiazanyTestIdNazwa);
         }
         return rozwiazanyTestIdNazwas;
     }

@@ -41,6 +41,11 @@ public class RozwiazanyTestApi {
         return rozwiazanyTestManager.getAllRozwiazanyTestIdNazwa(teacherId);
     }
 
+//    @GetMapping(value = "/tests-for-teacher")
+//    public List<Long> findTestsForTeacher(@RequestParam Long teacherId) {
+//
+//    }
+
     @PostMapping
     public RozwiazanyTest saveRozwiazanyTest(@RequestBody RozwiazanyTestWrapper rozwiazanyTest){
         Test test = testRepository.findById(rozwiazanyTest.getTest_id()).orElseThrow();
