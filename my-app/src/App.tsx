@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import TestCreating from './components/TestCreating';
 import TestSolving from './components/TestSolving';
 
 import Login from "./components/Login";
@@ -22,7 +21,6 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="test-solving" element={<TestSolving />} />
-          <Route path="test-creating" element={<TestCreating/>} />
           <Route path="teacher-panel" element={<TeacherPanel />}>
             <Route path=":teacherId" element={<TeacherPanel />} />
           </Route>

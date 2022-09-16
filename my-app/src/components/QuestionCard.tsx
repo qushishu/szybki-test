@@ -1,5 +1,4 @@
 import React from "react";
-import './QuestionCard.css'
 import { Pytanie, Odpowiedz } from "../API";
 
 type Props = {

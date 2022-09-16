@@ -4,7 +4,7 @@ import exportIcon from "../../assets/images/Export_icon.png"
 import binIcon from "../../assets/images/Bin_icon.png"
 import {borderColor, TeacherPanelData } from './TeacherPanel';
 import { useEffect, useState } from "react";
-import TestCreatingTP from "./TestCreatingTP";
+import TestCreatingTP from "./TestCreating";
 import ActivateTest from "./ActivateTest";
 
 const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
