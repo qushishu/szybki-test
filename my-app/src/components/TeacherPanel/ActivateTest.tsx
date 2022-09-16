@@ -1,15 +1,17 @@
 import { TeacherPanelData } from './TeacherPanel';
 import CreatedTests from './CreatedTests';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Test } from '../../API';
 
 //pass testId to this func
 const ActivateTest:React.FC<{tpData:TeacherPanelData,test:Test}> = ({tpData,test}) => {
     const[token,setToken] = useState<string>("")
+    const[activeTime,setActiveTime] = useState<number>(20)
+
     useEffect(()=>(
         setToken(test.token)
     ))
-    console.log(test.token);
+    
     const activateTest= async()=>{
         let date=new Date()
         const testPost = {
@@ -18,8 +20,8 @@ const ActivateTest:React.FC<{tpData:TeacherPanelData,test:Test}> = ({tpData,test
             "token": test.token,
             "nazwa": test.nazwa,
             "dataUruchomienia": date,
-            "dataZakonczenia": new Date().setMinutes((date).getMinutes()+20),
-            "czasTrwania": 20,
+            "dataZakonczenia": new Date().setMinutes((date).getMinutes()+activeTime),
+            "czasTrwania": activeTime,
             "czyAktywny": true
           }
         const requestOptions = {
@@ -33,13 +35,17 @@ const ActivateTest:React.FC<{tpData:TeacherPanelData,test:Test}> = ({tpData,test
         tpData.loadedPageContent(<CreatedTests {...tpData} />)
     }
 
+    const onActiveTimeChange = (e: ChangeEvent<HTMLInputElement>) =>{
+        setActiveTime(e.target.value as unknown as number)
+    }
+
     return(
         <div className="fullWidth">
             <h3>Aktywuj test: {test.nazwa}</h3>
             <div className='fullWidth'  style={{backgroundColor:"white", justifyContent:"space-around"}}>
                 <div style={{maxWidth:"500px"}}>
                     <div className='fullWidth flexRow' style={{margin:"10px"}}>
-                        <b>Czas do zakończenia testu(min):</b><input type="number"></input>
+                        <b>Czas do zakończenia testu(min):</b><input type="number" value={activeTime} onChange={onActiveTimeChange}></input>
                     </div>
                     <div className='fullWidth flexRow' style={{margin:"10px"}}>
                         <b>Token:</b><input value={token} disabled></input>
