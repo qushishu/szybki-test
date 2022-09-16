@@ -43,7 +43,8 @@ const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
       "nazwa": testName,
       "dataUruchomienia": "2022-09-15T19:59:41.432Z",
       "dataZakonczenia": "2022-09-15T19:59:41.432Z",
-      "czasTrwania": "2022-09-15T19:59:41.432Z"
+      "czasTrwania": 0,
+      "czyAktywny": false
     }
 
     const requestOptions = {
@@ -60,12 +61,12 @@ const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
 
   const saveQuesions = async () => {
     //console.log(tab[0].question);
-    const testId:number= await saveTest();
+    const testId:number= await (await saveTest());
     console.log("testid:"+testId);
     for (let j = 0; j < tab.length; j++) {
       console.log(tab[j]);
       const pytaniePost = {
-        "id": j + 1,
+        "id": 0,
         "testId": testId,
         "tresc": tab[j].question
       }
@@ -75,7 +76,7 @@ const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(pytaniePost)
       };
-
+      console.log(JSON.stringify(pytaniePost));
       const data = await fetch('http://localhost:8080/pytania', requestOptions).then(response => response.json());
       console.log(data);
       const pytanie: { id: 0 } = data;
