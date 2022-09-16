@@ -50,8 +50,8 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
             alert("Nie można usunąć aktywnego testu.")
         }
         else{
-            alert("TODO: delete test")
-            // let index = tests.findIndex(test)
+            //TODO delete test from db
+            setTests(tests.filter(t => t!==test))
         }
     }
 
@@ -66,7 +66,7 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
             </div>
             <div className='flexRow' style={{justifyContent:"space-around", padding:"10px", height:"60px"}}>
                 <button style={{width:"150px"}} onClick={test.isActive? ()=>closeTest(test) : ()=>activateTest(test)}>{test.isActive? "Zakończ test":"Aktywuj test"}</button>
-                <button onClick={()=> editTest(test)}><img className="icon" src={editIcon}/></button>
+                {/* <button onClick={()=> editTest(test)}><img className="icon" src={editIcon}/></button> */}
                 <button onClick={()=> deleteTest(test)}><img className="icon" src={binIcon}/></button>
             </div>
         </div>
@@ -92,8 +92,6 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
             <h3>Utworzone testy</h3>
             
             {loadTests()}         
-            
-
 
             <div className="fullWidth flexRow" style={{height:"60px"}}>
                 <button className="fullWidth" style={{border:"none", borderTop:borderColor}} onClick={createTest}>Nowy test</button>
