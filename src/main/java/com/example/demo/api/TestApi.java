@@ -44,20 +44,21 @@ public class TestApi {
                 .dataZakonczenia(testWrapper.getDataZakonczenia())
                 .nazwa(testWrapper.getNazwa())
                 .token(testWrapper.getToken())
+                .czyAktywny(testWrapper.isCzyAktywny())
                 .build();
         return testRepository.save(test);
     }
 
     @PutMapping
-    public Test updateTest(@RequestBody Test test){
-        Optional<Test> newTest = testRepository.findById(test.getId());
+    public Test updateTest(@RequestBody TestWrapper testWrapper){
+        Optional<Test> newTest = testRepository.findById(testWrapper.getId());
         newTest.ifPresent(($) -> {
-            $.setCzasTrwania(test.getCzasTrwania());
-            $.setDataUruchomienia(test.getDataUruchomienia());
-            $.setDataZakonczenia(test.getDataZakonczenia());
-            $.setNazwa(test.getNazwa());
-            $.setToken(test.getToken());
-            $.setNauczyciel(test.getNauczyciel());
+            $.setCzasTrwania(testWrapper.getCzasTrwania());
+            $.setDataUruchomienia(testWrapper.getDataUruchomienia());
+            $.setDataZakonczenia(testWrapper.getDataZakonczenia());
+            $.setNazwa(testWrapper.getNazwa());
+            $.setToken(testWrapper.getToken());
+            $.setCzyAktywny(testWrapper.isCzyAktywny());
             testRepository.save($);
         });
         return newTest.get();

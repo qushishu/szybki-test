@@ -21,4 +21,6 @@ public class TestWrapper {
     private Date dataZakonczenia;
     @NotBlank
     private Date czasTrwania;
+    @NotBlank
+    private boolean czyAktywny;
 }

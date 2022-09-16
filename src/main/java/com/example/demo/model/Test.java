@@ -33,4 +33,6 @@ public class Test {
     private Date dataZakonczenia;
     @Column(nullable = false)
     private Date czasTrwania;
+    @Column(nullable = false)
+    private boolean czyAktywny;
 }
