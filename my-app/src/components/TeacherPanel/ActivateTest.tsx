@@ -10,7 +10,25 @@ const ActivateTest:React.FC<{tpData:TeacherPanelData,test:Test}> = ({tpData,test
         setToken(test.token)
     ))
     console.log(test.token);
-    function activateTest(){
+    const activateTest= async()=>{
+        let date=new Date()
+        const testPost = {
+            "id": test.id,
+            "nauczycielId": tpData.teacherId,
+            "token": test.token,
+            "nazwa": test.nazwa,
+            "dataUruchomienia": date,
+            "dataZakonczenia": new Date().setMinutes((date).getMinutes()+20),
+            "czasTrwania": 20,
+            "czyAktywny": true
+          }
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(testPost)
+          };
+          //console.log(JSON.stringify(pytaniePost));
+          const data = await fetch('http://localhost:8080/testy', requestOptions).then(response => response.json());
         //TODO switch test to active
         tpData.loadedPageContent(<CreatedTests {...tpData} />)
     }
