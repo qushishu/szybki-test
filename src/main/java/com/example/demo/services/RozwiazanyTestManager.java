@@ -33,16 +33,18 @@ public class RozwiazanyTestManager {
         return rozwiazanyTestRepository.findById(id);
     }
 
-    public List<RozwiazanyTestIdNazwa> getAllRozwiazanyTestIdNazwa() {
+    public List<RozwiazanyTestIdNazwa> getAllRozwiazanyTestIdNazwa(Long teacherId) {
         Set<Long> rozwiazanyTestId = rozwiazanyTestRepository.findAll().stream().map(RozwiazanyTest::getId).collect(Collectors.toSet());
         List<RozwiazanyTestIdNazwa> rozwiazanyTestIdNazwas = new ArrayList<>();
         for (Long id: rozwiazanyTestId) {
             Test test = testRepository.getById(id);
-            RozwiazanyTestIdNazwa rozwiazanyTestIdNazwa = RozwiazanyTestIdNazwa.builder()
-                    .Id(id)
-                    .nazwa(test.getNazwa())
-                    .build();
-           rozwiazanyTestIdNazwas.add(rozwiazanyTestIdNazwa);
+            if (test.getNauczyciel().getId().equals(teacherId)) {
+                RozwiazanyTestIdNazwa rozwiazanyTestIdNazwa = RozwiazanyTestIdNazwa.builder()
+                        .Id(id)
+                        .nazwa(test.getNazwa())
+                        .build();
+                rozwiazanyTestIdNazwas.add(rozwiazanyTestIdNazwa);
+            }
         }
         return rozwiazanyTestIdNazwas;
     }

@@ -37,8 +37,8 @@ public class RozwiazanyTestApi {
     }
 
     @GetMapping(value = "/nazwa-id")
-    public List<RozwiazanyTestIdNazwa> findRozwiazanyTestIdNazwa() {
-        return rozwiazanyTestManager.getAllRozwiazanyTestIdNazwa();
+    public List<RozwiazanyTestIdNazwa> findRozwiazanyTestIdNazwa(@RequestParam Long teacherId) {
+        return rozwiazanyTestManager.getAllRozwiazanyTestIdNazwa(teacherId);
     }
 
     @PostMapping
