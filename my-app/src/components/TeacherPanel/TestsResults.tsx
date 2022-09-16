@@ -29,7 +29,7 @@ const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
                 </div>
                 <div className='flexRow'>
                     <button style={{width:"150px"}} onClick={() => showResults(test)}>Pokaz wyniki</button>
-                    <button style={{width:"150px"}} onClick={() => exportResults(test)}>Eksportuj wyniki</button>
+                    {/* <button style={{width:"150px"}} onClick={() => exportResults(test)}>Eksportuj wyniki</button> */}
                 </div>
             </div>
             ))
