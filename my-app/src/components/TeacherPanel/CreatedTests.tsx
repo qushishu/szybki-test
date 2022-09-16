@@ -8,7 +8,7 @@ import TestCreatingTP from "./TestCreatingTP";
 import ActivateTest from "./ActivateTest";
 
 const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
-    const [tests,setTests] = useState<Test[]>([{nazwa:"Test1",isActive:false},{nazwa:"Test2",isActive:true}]);
+    const [tests,setTests] = useState<Test[]>([{nazwa:"Test1",isActive:false,id:0,token:"as"},{nazwa:"Test2",isActive:true,id:0,token:"fds"}]);
     
     useEffect(() => {
         (async () => {
@@ -23,7 +23,7 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
     }
 
     function activateTest(test:Test){
-        tpData.loadedPageContent(<ActivateTest tpData={tpData} testName={test.nazwa}/>);
+        tpData.loadedPageContent(<ActivateTest tpData={tpData} test={test}/>);
     }
 
     function closeTest(test:Test){
@@ -84,10 +84,6 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
       }
     
       function createTest(){
-        //TODO: load createTestPage
-        // alert("TODO: load createTestPage")
-        // tpData.navigate('/test-creating', { state: { id: 1 } });
-        setTests([...tests,{nazwa:"Test2",isActive:true}])
         tpData.loadedPageContent(<TestCreatingTP {...tpData} />)
       }
 

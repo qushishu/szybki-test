@@ -1,14 +1,15 @@
 import { TeacherPanelData } from './TeacherPanel';
 import CreatedTests from './CreatedTests';
 import { useEffect, useState } from 'react';
+import { Test } from '../../API';
 
 //pass testId to this func
-const ActivateTest:React.FC<{tpData:TeacherPanelData,testName:string}> = ({tpData,testName}) => {
+const ActivateTest:React.FC<{tpData:TeacherPanelData,test:Test}> = ({tpData,test}) => {
     const[token,setToken] = useState<string>("")
     useEffect(()=>(
-        console.log("TODO get token from db")
+        setToken(test.token)
     ))
-
+    console.log(test.token);
     function activateTest(){
         //TODO switch test to active
         tpData.loadedPageContent(<CreatedTests {...tpData} />)
@@ -16,7 +17,7 @@ const ActivateTest:React.FC<{tpData:TeacherPanelData,testName:string}> = ({tpDat
 
     return(
         <div className="fullWidth">
-            <h3>Aktywuj test: {testName}</h3>
+            <h3>Aktywuj test: {test.nazwa}</h3>
             <div className='fullWidth'  style={{backgroundColor:"white", justifyContent:"space-around"}}>
                 <div style={{maxWidth:"500px"}}>
                     <div className='fullWidth flexRow' style={{margin:"10px"}}>

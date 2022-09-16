@@ -10,8 +10,10 @@ export type Token = {
 }
 
 export type Test = {
+    id: number;
     nazwa: string;
     isActive: boolean;
+    token:string;
 }
 
 export type TestResults = {
