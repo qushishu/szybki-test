@@ -1,5 +1,7 @@
 import React from "react";
 import { Pytanie, Odpowiedz } from "../API";
+import './QuestionCard.css'
+
 
 type Props = {
     callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
