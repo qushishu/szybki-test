@@ -21,7 +21,7 @@ const CreateQuestionCard: React.FC<Test> = ({ questionNr, question }) => {
         const inputs = ["question", "odp1", "odp2", "odp3", "odp4"]
         for (let i = 0; i < inputs.length; i++) {
             const data = val.target.value;
-            console.log(data);
+            // console.log(data);
             const tmp = quest;
             switch (val.target.id) {
                 case "question":
@@ -71,17 +71,17 @@ const CreateQuestionCard: React.FC<Test> = ({ questionNr, question }) => {
         else {
             question[questionNr - 1] = quest;
         }
-        console.log(quest);
+        // console.log(quest);
     }
 
 
     return (
         <div className='main'>
             <div className='question-section'>
-                <span className='question-mark'>Pytanie nr {questionNr}</span>
+                <span className='question-mark'><h4>Pytanie nr {questionNr}</h4></span>
                 <textarea name="question-textarea" id="question" cols={60} rows={3} placeholder="Wpisz pytanie..." onChange={getData}></textarea>
                 <div className='answers-section'>
-                    <span className='odp-name'>Odpowiedzi:</span>
+                    <span className='odp-name'><h4>Odpowiedzi:</h4></span>
                     <label>
                         <input type="checkbox" checked={isCorrect[0]} onChange={() => changeCorrectAnswer(0)} />
                         a.

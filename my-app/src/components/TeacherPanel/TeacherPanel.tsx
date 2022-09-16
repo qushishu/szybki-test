@@ -61,7 +61,7 @@ const TeacherPanel = () => {
                     <button className="fullWidth" onClick={() => setloadedPageContent(<CreatedTests {...tpData} />)}>Utworzone testy</button>
                     <button className="fullWidth" onClick={() => setloadedPageContent(<TestsResults {...tpData}/>)}>Wyniki testów</button>
                 </div>
-                <div className="pane" style={{ width: "80%", minWidth: "200px" }}>
+                <div className="pane" style={{ width: "80%", minWidth: "300px" }}>
                     {loadedPageContent}
                 </div>
             </div>
