@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
 import CreateQuestionCard, { questionType } from '../CreateQuestionCard'
-import '../CreateQuestionCard.css'
-import { useNavigate,useLocation } from "react-router-dom";
 import { TeacherPanelData } from './TeacherPanel';
 import CreatedTests from './CreatedTests';
+import './TeacherPanel.css';
 
-const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
+const TestCreating:React.FC<TeacherPanelData> = (tpData) => {
 
   const [ilePytan, setilePytan] = useState(1);
   const [tab, setTab] = useState<questionType[]>([]);
   const [testName,setTestName]=useState("");
   const [pytania, setPytania] = useState<React.ReactElement[]>([<CreateQuestionCard key={ilePytan} questionNr={ilePytan} question={tab} />]);
   const [pytanieId, setPytanieId] = useState(0);
-
-  const {state} = useLocation();
-
-  // const testId=(state as {id:number}).id
 
   function addQuestion() {
     setilePytan(ilePytan + 1);
@@ -115,17 +110,21 @@ const TestCreatingTP:React.FC<TeacherPanelData> = (tpData) => {
 
 
   return (
-    <div>
-      <h1>Test Creating</h1>
-      <textarea name="test-name" id="test-name-id" cols={40} rows={1} placeholder="Wpisz tytuł testu..." onChange={getData}></textarea>
-      {pytania}
-      <div className='options'>
-      <button onClick={addQuestion}>Dodaj pytanie</button>
-      <button onClick={removeQuestion}>Usun pytanie</button>
-      <button onClick={saveQuesions}>Zapisz test</button>
+    <div className='fullWidth'>
+      <h3>Nowy test</h3>
+      <div className='fullWidth' style={{backgroundColor:"white"}}>
+        <textarea name="test-name" id="test-name-id" cols={40} rows={1} placeholder="Wpisz tytuł testu..." onChange={getData} style={{fontSize:"x-large", margin:"20px"}}></textarea>
+        <div>
+          {pytania}
+          <div className='fullWidth flexRow' style={{justifyContent:"space-around"}}>
+            <button onClick={addQuestion}>Dodaj pytanie</button>
+            <button onClick={removeQuestion}>Usun pytanie</button>
+            <button onClick={saveQuesions}>Zapisz test</button>
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
-export default TestCreatingTP
+export default TestCreating
