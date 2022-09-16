@@ -32,7 +32,7 @@ public class Test {
     @Column(nullable = false)
     private Date dataZakonczenia;
     @Column(nullable = false)
-    private Date czasTrwania;
+    private int czasTrwania;
     @Column(nullable = false)
     private boolean czyAktywny;
 }

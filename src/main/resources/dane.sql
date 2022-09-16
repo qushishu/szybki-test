@@ -10,8 +10,8 @@ insert into nauczyciel (nauczyciel_id, name, surname, login_id) values (3, 'Pawe
 insert into nauczyciel (nauczyciel_id, name, surname, login_id) values (4, 'Agnieszka', 'Czad', 4);
 insert into nauczyciel (nauczyciel_id, name, surname, login_id) values (5, 'Natalia', 'Balwan', 5);
 
-insert into test (czas_trwania, data_uruchomienia, data_zakonczenia, nazwa, token, nauczyciel_id, czy_aktywny) values ('2022-09-14 00:30:00', '2022-09-14', '2022-09-16', 'test1', 'token', 1, true);
-insert into test (czas_trwania, data_uruchomienia, data_zakonczenia, nazwa, token, nauczyciel_id, czy_aktywny) values ('2022-09-14 00:30:00', '2022-09-14', '2022-09-16', 'test2', 'token2', 1, false);
+insert into test (czas_trwania, data_uruchomienia, data_zakonczenia, nazwa, token, nauczyciel_id, czy_aktywny) values (30, '2022-09-14', '2022-09-16', 'test1', 'token', 1, true);
+insert into test (czas_trwania, data_uruchomienia, data_zakonczenia, nazwa, token, nauczyciel_id, czy_aktywny) values (30, '2022-09-14', '2022-09-16', 'test2', 'token2', 1, false);
 
 insert into pytanie (pytanie_id, tresc, test_id) values (1, 'ile to 2+2?', '1');
 insert into pytanie (pytanie_id, tresc, test_id) values (2, 'ile to 2+3?', '1');
