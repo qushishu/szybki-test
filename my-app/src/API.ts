@@ -12,8 +12,9 @@ export type Token = {
 export type Test = {
     id: number;
     nazwa: string;
-    isActive: boolean;
+    czyAktywny: boolean;
     token:string;
+    dataZakonczenia:Date
 }
 
 
@@ -91,8 +92,8 @@ export const getQuizAnswers = async (pytanieId: number) => {
 export const getTests = async () => {
     const endpoint = 'http://localhost:8080/testy';
     const data = await (await fetch(endpoint)).json();
-    const testy: Token[] = data;
-    return testy;
+    //const testy: Token[] = data;
+    return data;
 }
 
 export const getTeacherTests = async (teacherId:number) => {

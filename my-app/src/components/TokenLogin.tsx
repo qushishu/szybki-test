@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { getTests, Token } from "../API";
+import { getTests, Test, Token } from "../API";
 import { useNavigate } from "react-router-dom";
 const TokenLogin = () => {
   let navigate = useNavigate();
@@ -7,11 +7,13 @@ const TokenLogin = () => {
   const authorize = async () => {
     //  API request
     console.log(token);
-    const testy: Token[] = await getTests();
+    const testy: Test[] = await getTests();
     const indeks: string = token.slice(0, 6)
     const testToken: string = token.slice(6)
     for (let i = 0; i < testy.length; i++) {
-      if (testToken == testy[i].token) {
+      console.log(testy[i].dataZakonczenia)
+      console.log(new Date())
+      if (testToken == testy[i].token && testy[i].dataZakonczenia.toLocaleString()>new Date().toLocaleString()) {
         setCorrectAuth(true);
         navigate('/test-solving', { state: { id: testy[i].id, indeks: indeks } });
         break;

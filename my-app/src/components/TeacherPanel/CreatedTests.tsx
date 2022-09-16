@@ -8,7 +8,7 @@ import TestCreatingTP from "./TestCreating";
 import ActivateTest from "./ActivateTest";
 
 const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
-    const [tests,setTests] = useState<Test[]>([{nazwa:"Test1",isActive:false,id:0,token:"as"},{nazwa:"Test2",isActive:true,id:0,token:"fds"}]);
+    const [tests,setTests] = useState<Test[]>([{nazwa:"Test1",czyAktywny:false,id:0,token:"as",dataZakonczenia:new Date()}]);
     
     useEffect(() => {
         (async () => {
@@ -26,13 +26,33 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
         tpData.loadedPageContent(<ActivateTest tpData={tpData} test={test}/>);
     }
 
-    function closeTest(test:Test){
+    const closeTest= async(test:Test)=>{
         //TODO: close test
-        alert("TODO: close test. "+test.nazwa)
+            let date=new Date()
+            const testPost = {
+                "id": test.id,
+                "nauczycielId": tpData.teacherId,
+                "token": test.token,
+                "nazwa": test.nazwa,
+                "dataUruchomienia": date,
+                "dataZakonczenia": date,
+                "czasTrwania": 0,
+                "czyAktywny": false
+              }
+            const requestOptions = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(testPost)
+              };
+              //console.log(JSON.stringify(pytaniePost));
+              const data = await fetch('http://localhost:8080/testy', requestOptions).then(response => response.json());
+            //TODO switch test to active
+           // test.czyAktywny=false
+           window.location.reload();
     }
 
     function editTest(test:Test){
-        if(test.isActive){
+        if(test.czyAktywny){
             alert("Nie można edytować aktywnego testu.")
         }
         else{
@@ -46,7 +66,7 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
     }
 
     function deleteTest(test:Test){
-        if(test.isActive){
+        if(test.czyAktywny){
             alert("Nie można usunąć aktywnego testu.")
         }
         else{
@@ -62,10 +82,10 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
         <div className='fullWidth flexRow' style={{borderTop:borderColor, padding:"5px", paddingLeft:"20px"}} key={i}>
             <div className="flexRow">
                 <b>Nazwa testu:</b>{test.nazwa} 
-                <b>{test.isActive ? "(Aktywny)": ""}</b>
+                <b>{test.czyAktywny ? "(Aktywny)": ""}</b>
             </div>
             <div className='flexRow' style={{justifyContent:"space-around", padding:"10px", height:"60px"}}>
-                <button style={{width:"150px"}} onClick={test.isActive? ()=>closeTest(test) : ()=>activateTest(test)}>{test.isActive? "Zakończ test":"Aktywuj test"}</button>
+                <button style={{width:"150px"}} onClick={test.czyAktywny? ()=> closeTest(test) : ()=>activateTest(test)}>{test.czyAktywny? "Zakończ test":"Aktywuj test"}</button>
                 {/* <button onClick={()=> editTest(test)}><img className="icon" src={editIcon}/></button> */}
                 <button onClick={()=> deleteTest(test)}><img className="icon" src={binIcon}/></button>
             </div>

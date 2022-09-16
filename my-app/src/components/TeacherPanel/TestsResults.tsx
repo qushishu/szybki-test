@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 
 const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
-    const [tests,setTests] = useState<Test[]>([{id:0,nazwa:"Test1",isActive:true,token:"aa"}]);
+    const [tests,setTests] = useState<Test[]>([{id:0,nazwa:"Test1",czyAktywny:true,token:"aa",dataZakonczenia:new Date()}]);
 
     useEffect(()=>(
         console.log("TODO get tests with results from db")
