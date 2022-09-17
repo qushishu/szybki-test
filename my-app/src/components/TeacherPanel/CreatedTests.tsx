@@ -87,7 +87,7 @@ const CreatedTests:React.FC<TeacherPanelData> = (tpData) =>{
             <div className='flexRow' style={{justifyContent:"space-around", padding:"10px", height:"60px"}}>
                 <button style={{width:"150px"}} onClick={test.czyAktywny? ()=> closeTest(test) : ()=>activateTest(test)}>{test.czyAktywny? "Zakończ test":"Aktywuj test"}</button>
                 {/* <button onClick={()=> editTest(test)}><img className="icon" src={editIcon}/></button> */}
-                <button onClick={()=> deleteTest(test)}><img className="icon" src={binIcon}/></button>
+                {/* <button onClick={()=> deleteTest(test)}><img className="icon" src={binIcon}/></button> */}
             </div>
         </div>
         ))

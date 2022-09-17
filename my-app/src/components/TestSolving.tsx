@@ -102,7 +102,7 @@ const TestSolving = () => {
   }
 
   const nextQuestion = () => {
-    //setUserAnswer("");
+    setUserAnswer("");
     postOdpowiedzStudenta(answerId);
     setNext(false);
     //move on to the next questions if not the last questio
