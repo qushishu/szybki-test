@@ -1,6 +1,6 @@
 import {getResults, Test} from "../../API"
 import { borderColor, TeacherPanelData } from './TeacherPanel';
-import SingleTestsResults from './SingleTestResults';
+import SingleTestsResults, { StudentResults } from './SingleTestResults';
 import { useEffect, useState } from "react";
 
 export type OdpStudenta = {
@@ -62,7 +62,42 @@ const TestsResults:React.FC<TeacherPanelData> = (tpData) => {
         setOdp(a);
         //tworznie tablicy studentow z punktami
 
-        tpData.loadedPageContent(<SingleTestsResults tpData={tpData} test={odp}/>)
+        const b:StudentResults[]=[]
+        const indeksy:string[]=[]
+        for(let i=0;i<odp.length;i++){
+            let jest=false;
+            const xd:string=odp[i].indeks;
+            for(let j=0;j<indeksy.length;j++){
+                if(odp[i].indeks==indeksy[j]){
+                    jest=true
+                }
+            }
+            if(jest==false){
+                indeksy.push(xd);
+            }
+        }
+        
+        for(let i=0;i<indeksy.length;i++){
+            let maxpkt=0
+            let pkt=0
+            for(let j=0;j<odp.length;j++){
+                if(indeksy[i]==odp[j].indeks){
+                    maxpkt++
+                    if(odp[j].czyPoprawna){
+                        pkt++
+                    }
+                }
+            }
+            const a:StudentResults={name:indeksy[i],percentGrade:pkt/maxpkt*100}
+            console.log(a);
+            b.push(a);
+        }
+        //setStudentResults(b);
+        console.log(b);
+
+        //
+
+        tpData.loadedPageContent(<SingleTestsResults tpData={tpData} test={odp} results={b}/>)
     }
 
     function exportResults(testResults:Test){
