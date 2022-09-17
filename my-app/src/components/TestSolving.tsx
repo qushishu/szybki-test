@@ -28,6 +28,8 @@ const TestSolving = () => {
   const [correctAns, setCorrectAns] = useState(0);
   const [start, setStart] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
+  const [answerId,setAnswerId]=useState(0);
+  const [rozwiazanyTestId,setRozwiazanyTestId]=useState(0);
 
   const { state } = useLocation();
   const testId = (state as { id: number }).id
@@ -42,7 +44,7 @@ const TestSolving = () => {
     const requestOptionsOdp = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ odpowiedz_id: odpId, rozwiazany_test_id: testId })
+      body: JSON.stringify({id:0, odpowiedz_id: odpId, rozwiazany_test_id: rozwiazanyTestId })
     };
     return requestOptionsOdp
   }
@@ -50,6 +52,8 @@ const TestSolving = () => {
   const postRozwiazaneTesty = async () => {
     const endpoint = 'http://localhost:8080/rozwiazanetesty';
     const data = await (await fetch(endpoint, requestOptionsTest)).json();
+    const xd:{id:number}=data;
+    setRozwiazanyTestId(xd.id);
     return data;
   }
   const postOdpowiedzStudenta = async (odpId: number) => {
@@ -81,7 +85,8 @@ const TestSolving = () => {
       setUserAnswer("Wybrano: " + answer);
       for (let i = 0; i < 4; i++) {
         if (answers[number].odpowiedzi[i].tresc == answer) {
-          postOdpowiedzStudenta(answers[number].odpowiedzi[i].id)
+          //postOdpowiedzStudenta(answers[number].odpowiedzi[i].id)
+          setAnswerId(answers[number].odpowiedzi[i].id);
         }
         if (answers[number].odpowiedzi[i].tresc == answer && answers[number].odpowiedzi[i].czyPoprawna) {
           console.log("dobra odpowiedz");
@@ -97,7 +102,8 @@ const TestSolving = () => {
   }
 
   const nextQuestion = () => {
-    setUserAnswer("");
+    //setUserAnswer("");
+    postOdpowiedzStudenta(answerId);
     setNext(false);
     //move on to the next questions if not the last questio
     const pkt = score + correctAns;

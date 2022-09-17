@@ -99,8 +99,6 @@ const TestCreating:React.FC<TeacherPanelData> = (tpData) => {
 
     //if saved
     tpData.loadedPageContent(<CreatedTests {...tpData}/>)
-    
-    alert("Can't save test")
   }
 
   function getData(val: React.ChangeEvent<HTMLTextAreaElement>) {

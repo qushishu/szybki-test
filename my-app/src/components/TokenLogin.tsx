@@ -11,9 +11,9 @@ const TokenLogin = () => {
     const indeks: string = token.slice(0, 6)
     const testToken: string = token.slice(6)
     for (let i = 0; i < testy.length; i++) {
-      console.log(testy[i].dataZakonczenia)
-      console.log(new Date())
-      if (testToken == testy[i].token && testy[i].dataZakonczenia.toLocaleString()>new Date().toLocaleString()) {
+      console.log(testy[i].dataZakonczenia.toLocaleString())
+      console.log(new Date().toLocaleString())
+      if (testToken == testy[i].token && testy[i].czyAktywny && testy[i].dataZakonczenia.toLocaleString()>new Date().toLocaleString()) {
         setCorrectAuth(true);
         navigate('/test-solving', { state: { id: testy[i].id, indeks: indeks } });
         break;

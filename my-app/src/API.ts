@@ -103,4 +103,18 @@ export const getTeacherTests = async (teacherId:number) => {
     return data;
 }
 
+export const getTeachers = async () => {
+    const endpoint = 'http://localhost:8080/nauczyciele';
+    const data = await (await fetch(endpoint)).json();
+    //const testy: Test[] = data;
+    return data;
+}
+
+export const getResults = async () => {
+    const endpoint = 'http://localhost:8080/odpowiedzistudentow';
+    const data = await (await fetch(endpoint)).json();
+    //const testy: Test[] = data;
+    return data;
+}
+
 

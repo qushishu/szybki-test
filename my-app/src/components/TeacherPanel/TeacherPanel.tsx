@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import CreatedTests from './CreatedTests';
 import TestsResults from './TestsResults';
 import TestCreatingTP from './TestCreating';
+import { getTeachers } from '../../API';
 
 export interface IdTeacher {
     teacherId: number
@@ -23,11 +24,21 @@ export const borderColor = "1px solid #aa33da"
 
 const TeacherPanel = () => {
     const [loadedPageContent, setloadedPageContent] = useState<React.ReactElement>();
-
+    const [name,setName] = useState("imie")
+    const [lastName,setLastName] = useState("imie")
+    //let name = "Imie"
     //TODO: pass auth teacher data
     const id = useParams();
     useEffect(() => {
         (async () => {
+            const a:{id:number,name:string,surname:string}[]=await getTeachers();
+            for(let i =0;i<a.length;i++){
+                if(a[i].id == id.teacherId as unknown as number){
+                    setName(a[i].name)
+                    setLastName(a[i].surname);
+                }
+            }
+            
             console.log(id.teacherId) // this is Tacher ID after login
         })();
         setloadedPageContent(<CreatedTests {...tpData}/>)
@@ -40,8 +51,8 @@ const TeacherPanel = () => {
     }
 
     // navigate('/teacher-panel/'+ props.teacherId)
-    let name = "Imie"
-    let last_name = "Nazwisko"
+   // let name = "Imie"
+    //let last_name = "Nazwisko"
     let userImg = userimgtemplate //switch to user image if available
 
 
@@ -52,7 +63,7 @@ const TeacherPanel = () => {
         <div className="teacherPanel">
             <div className="pane fullWidth flexRow" style={{ padding: "10px", flexWrap:"nowrap" }}>
                 <img className="small-image" src={logo} alt="logo" onClick={()=> tpData.navigate('/login')}/>
-                <h3>Panel nauczyciela, {name} {last_name}</h3>
+                <h3>Panel nauczyciela, {name} {lastName}</h3>
                 <img className="small-image" src={userImg} alt="logo"/>
             </div>
             <div className="fullWidth flexRow" style={{ justifyContent: "space-around", padding: "10px", alignItems: "start" }}>
